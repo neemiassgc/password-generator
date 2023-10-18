@@ -1,10 +1,16 @@
+"use client"
+
+import { useState } from "react"
 import Box from "@mui/material/Box"
-import Button from "@mui/material/Button"
+import IconButton from "@mui/material/IconButton"
 import Slider from "@mui/material/Slider"
 import Stack from "@mui/material/Stack"
 import { BsShieldFillCheck } from "react-icons/bs"
 import { FaCirclePlus } from "react-icons/fa6"
 import { FaCircleMinus } from "react-icons/fa6"
+import { MdEmojiSymbols } from "react-icons/md"
+import { TbNumbers } from "react-icons/tb"
+import { RxLetterCaseLowercase, RxLetterCaseUppercase } from "react-icons/rx"
 
 export default function Home() {
   return (
@@ -39,9 +45,48 @@ export default function Home() {
                 <FaCirclePlus className="text-2xl"/>
               </Stack>
             </div>
+            <CustomizationButtons/>
           </Box>
         </div>
       </main>
+    </div>
+  )
+}
+
+function CustomizationButtons() {
+  const [numbersActive, setNumbersActive] = useState(false)
+  const [lowerCaseLettersActive, setLowerCaseLettersActive] = useState(false);
+  const [upperCaseLettersActive, setUpperCaseLettersActive] = useState(false);
+  const [symbolsActive, setSymbolsActive] = useState(false);
+
+  const computeIconClasses: (flag: boolean) => string = flag => {
+    return `text-4xl ${flag ? "text-green-600" : "text-black"}`
+  }
+
+  const computeIconButtonClasses: (flag: boolean) => string = flag => {
+    return `hover:bg-default p-3 ${flag ? "bg-black" : "bg-none"}`
+  }
+
+  return (
+    <div className="w-full mt-7">
+      <Box className="w-full flex justify-evenly">
+        <IconButton className={computeIconButtonClasses(lowerCaseLettersActive)}
+          onClick={(): void => setLowerCaseLettersActive(!lowerCaseLettersActive)}>
+          <RxLetterCaseLowercase className={computeIconClasses(lowerCaseLettersActive)}/>
+        </IconButton>
+        <IconButton className={computeIconButtonClasses(upperCaseLettersActive)}
+          onClick={(): void => setUpperCaseLettersActive(!upperCaseLettersActive)}>
+          <RxLetterCaseUppercase className={computeIconClasses(upperCaseLettersActive)}/>
+        </IconButton>
+        <IconButton className={computeIconButtonClasses(numbersActive)}
+          onClick={(): void => setNumbersActive(!numbersActive)}>
+          <TbNumbers className={computeIconClasses(numbersActive)}/>
+        </IconButton>
+        <IconButton className={computeIconButtonClasses(symbolsActive)}
+          onClick={(): void => setSymbolsActive(!symbolsActive)}>
+          <MdEmojiSymbols className={computeIconClasses(symbolsActive)}/>
+        </IconButton>
+      </Box> 
     </div>
   )
 }
