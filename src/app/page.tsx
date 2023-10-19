@@ -90,3 +90,5 @@ function CustomizationButtons() {
     </div>
   )
 }
+
+export const runtime = "edge";
