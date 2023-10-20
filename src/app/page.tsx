@@ -60,32 +60,41 @@ function CustomizationButtons() {
   const [symbolsActive, setSymbolsActive] = useState(false);
 
   const computeIconClasses: (flag: boolean) => string = flag => {
-    return `text-4xl ${flag ? "text-green-600" : "text-black"}`
+    return `text-2xl ${flag ? "text-white" : "text-black"}`
   }
 
-  const computeIconButtonClasses: (flag: boolean) => string = flag => {
-    return `hover:bg-default p-3 ${flag ? "bg-black" : "bg-none"}`
+  function CustomChip(props: any) {
+    return (
+      <div className={`border-2 border-b-4 border-r-4 hover:cursor-pointer border-black rounded-full flex gap-1 p-2 items-center ${props.flag ? "bg-black text-white" : "bg-white text-black"}`} onClick={props.onClick}>
+        {props.icon}
+        <span className="block font-semibold text-md">{props.label}</span>
+      </div>
+    );
   }
 
   return (
     <div className="w-full mt-7">
-      <Box className="w-full flex justify-evenly">
-        <IconButton className={computeIconButtonClasses(lowerCaseLettersActive)}
-          onClick={(): void => setLowerCaseLettersActive(!lowerCaseLettersActive)}>
-          <RxLetterCaseLowercase className={computeIconClasses(lowerCaseLettersActive)}/>
-        </IconButton>
-        <IconButton className={computeIconButtonClasses(upperCaseLettersActive)}
-          onClick={(): void => setUpperCaseLettersActive(!upperCaseLettersActive)}>
-          <RxLetterCaseUppercase className={computeIconClasses(upperCaseLettersActive)}/>
-        </IconButton>
-        <IconButton className={computeIconButtonClasses(numbersActive)}
-          onClick={(): void => setNumbersActive(!numbersActive)}>
-          <TbNumbers className={computeIconClasses(numbersActive)}/>
-        </IconButton>
-        <IconButton className={computeIconButtonClasses(symbolsActive)}
-          onClick={(): void => setSymbolsActive(!symbolsActive)}>
-          <MdEmojiSymbols className={computeIconClasses(symbolsActive)}/>
-        </IconButton>
+      <Box className="w-full h-max flex flex-wrap justify-evenly">
+        <CustomChip
+         flag={lowerCaseLettersActive}
+         label="Lowercase Letters"
+          icon={<RxLetterCaseLowercase className={computeIconClasses(lowerCaseLettersActive)}/>}
+          onClick={(): void => setLowerCaseLettersActive(!lowerCaseLettersActive)}/>
+        <CustomChip
+         flag={upperCaseLettersActive}
+         label="Uppercase Letters"
+          icon={<RxLetterCaseUppercase className={computeIconClasses(upperCaseLettersActive)}/>}
+          onClick={(): void => setUpperCaseLettersActive(!upperCaseLettersActive)}/>
+        <CustomChip
+         flag={numbersActive}
+         label="numbers"
+          icon={<TbNumbers className={computeIconClasses(numbersActive)}/>}
+          onClick={(): void => setNumbersActive(!numbersActive)}/>
+        <CustomChip
+         flag={symbolsActive}
+         label="symbols"
+          icon={<MdEmojiSymbols className={computeIconClasses(symbolsActive)}/>}
+          onClick={(): void => setSymbolsActive(!symbolsActive)}/>
       </Box> 
     </div>
   )
