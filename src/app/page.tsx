@@ -26,7 +26,7 @@ export default function Home() {
 
 function StrengthIndicator() {
   return (
-    <div className="w-fit mx-auto mt-1 bg-red-500">
+    <div className="w-fit mx-auto mb-3">
       <BsShieldFillCheck className="text-3xl inline mr-1 text-green-600"/>
       <span className="text-xl text-black font-semibold">Very strong</span>
     </div>
