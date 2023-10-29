@@ -4,6 +4,7 @@ import { useState } from "react"
 import Box from "@mui/material/Box"
 import Slider from "@mui/material/Slider"
 import Stack from "@mui/material/Stack"
+import Divider from "@mui/material/Divider"
 import { BsShieldFillCheck } from "react-icons/bs"
 import { FaCirclePlus } from "react-icons/fa6"
 import { FaCircleMinus } from "react-icons/fa6"
@@ -14,9 +15,8 @@ import { RxLetterCaseLowercase, RxLetterCaseUppercase } from "react-icons/rx"
 export default function Home() {
   return (
     <div className="w-screen h-screen flex justify-center items-center">
-      <main className="w-5/6 sm:w-8/12 md:w-7/12 lg:w-1/2 h-3/4 flex flex-col justify-between gap-10">
+      <main className="w-5/6 sm:w-8/12 md:w-7/12 lg:w-1/2 h-2/3 flex flex-col justify-start gap-7">
         <HeaderBlock/>
-        <MiddleBlock/>
         <FooterBlock/>
       </main>
     </div>
@@ -25,28 +25,25 @@ export default function Home() {
 
 function HeaderBlock() {
   return (
-    <div className="border-2 border-black rounded-lg w-full overflow-x-hidden">
-      <div className="w-full bg-black p-2 text-center">
-          <span className="text-white text-xl">Generate a Strong Password</span>
-      </div>
+    <div className="border-2 border-black border-b-4 border-t-4 shadow-2xl rounded-lg w-full overflow-x-hidden">
       <Box className="my-2">
-        <span className="text-center w-fit mx-auto p-2 rounded-lg block text-2xl">asodjfalkçsdfmçaklsdf</span>
         <div className="w-fit mx-auto mt-1">
           <BsShieldFillCheck className="text-3xl inline mr-1 text-green-600"/>
           <span className="text-xl text-black font-semibold">Very strong</span>
         </div>
+        <span className="text-center w-fit mx-auto p-2 rounded-lg block text-2xl">asodjfalkçsdfmçaklsdf</span>
       </Box>
     </div>
   )
 }
 
-function MiddleBlock() {
+function SliderBlock() {
   return (
-    <Box className="border-2 border-black rounded-lg">
-      <div className="bg-black w-full p-2 text-center">
-        <span className="text-white text-xl text-md">Choose the length of the password</span>
+    <Box className="mt-5">
+      <div className="w-full text-center">
+        <span className="text-black text-lg text-md">Password Length: 5</span>
       </div>
-      <div className="w-5/6 mx-auto my-4">
+      <div className="w-5/6 mx-auto my-3">
         <Stack spacing={1} direction="row" alignItems="center">
           <FaCircleMinus className="text-2xl"/>
           <Slider
@@ -63,10 +60,11 @@ function MiddleBlock() {
 
 function FooterBlock() {
   return (
-    <div className="border-2 border-black rounded-lg w-full flex-grow">
-      <Box className="p-2">
-        <span className="text-black font-semibold text-xl block mx-auto w-fit p-1">Customize your password</span>
+    <div className="border-2 border-black border-b-4 border-t-4 shadow-2xl rounded-lg w-full">
+      <Box className="p-2 text-center bg-black">
+        <span className="text-white text-2xl w-fit">Customize your password</span>
       </Box>
+      <SliderBlock/>
       <CustomizationButtons/>
     </div>
   )
@@ -84,7 +82,7 @@ function CustomizationButtons() {
 
   function CustomChip(props: any) {
     return (
-      <div className={`border-2 hover:border-r-4 hover:border-b-4 hover:cursor-pointer border-black rounded-full flex gap-1 p-2 items-center ${props.flag ? "bg-black text-white" : "bg-white text-black"}`} onClick={props.onClick}>
+      <div className={`border-2 hover:cursor-pointer border-black rounded-full flex gap-1 p-2 items-center ${props.flag ? "bg-black text-white" : "bg-white text-black"}`} onClick={props.onClick}>
         {props.icon}
         <span className="block font-semibold text-md">{props.label}</span>
       </div>
@@ -92,8 +90,8 @@ function CustomizationButtons() {
   }
 
   return (
-    <div className="w-full mt-7">
-      <Box className="w-full gap-1 sm:gap-0 flex flex-wrap justify-evenly">
+    <div className="w-full p-3 mb-3">
+      <Box className="w-full gap-2 lg:gap-0 flex flex-wrap justify-evenly">
         <CustomChip
          flag={lowerCaseLettersActive}
          label="Lowercase Letters"
