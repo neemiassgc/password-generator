@@ -14,8 +14,9 @@ import { RxLetterCaseLowercase, RxLetterCaseUppercase } from "react-icons/rx"
 export default function Home() {
   return (
     <div className="w-screen h-screen flex justify-center items-center">
-      <main className="w-5/6 sm:w-8/12 md:w-7/12 lg:w-1/2 h-2/3 flex flex-col justify-between gap-16">
+      <main className="w-5/6 sm:w-8/12 md:w-7/12 lg:w-1/2 h-3/4 flex flex-col justify-between gap-10">
         <HeaderBlock/>
+        <MiddleBlock/>
         <FooterBlock/>
       </main>
     </div>
@@ -24,39 +25,49 @@ export default function Home() {
 
 function HeaderBlock() {
   return (
-    <div className="border-4 w-full border-black rounded-xl overflow-x-hidden">
-      <Box className="bg-black p-2">
-        <div className="w-fit mx-auto">
+    <div className="border-2 border-black rounded-lg w-full overflow-x-hidden">
+      <div className="w-full bg-black p-2 text-center">
+          <span className="text-white text-xl">Generate a Strong Password</span>
+      </div>
+      <Box className="my-2">
+        <span className="text-center w-fit mx-auto p-2 rounded-lg block text-2xl">asodjfalkçsdfmçaklsdf</span>
+        <div className="w-fit mx-auto mt-1">
           <BsShieldFillCheck className="text-3xl inline mr-1 text-green-600"/>
-          <span className="text-xl text-white font-semibold">Very strong</span>
+          <span className="text-xl text-black font-semibold">Very strong</span>
         </div>
       </Box>
-      <span className="text-center w-fit mx-auto p-2 rounded-lg block text-2xl my-2">asodjfalkçsdfmçaklsdf</span>
     </div>
   )
 }
 
+function MiddleBlock() {
+  return (
+    <Box className="border-2 border-black rounded-lg">
+      <div className="bg-black w-full p-2 text-center">
+        <span className="text-white text-xl text-md">Choose the length of the password</span>
+      </div>
+      <div className="w-5/6 mx-auto my-4">
+        <Stack spacing={1} direction="row" alignItems="center">
+          <FaCircleMinus className="text-2xl"/>
+          <Slider
+            className="text-black block w-full mx-auto"
+            aria-label="Always visible"
+            defaultValue={10}
+          />
+          <FaCirclePlus className="text-2xl"/>
+        </Stack>
+      </div>
+    </Box>
+  );
+}
+
 function FooterBlock() {
   return (
-    <div className="border-4 rounded-xl border-black w-full flex-grow">
-      <Box className="bg-black p-2">
-        <span className="text-white font-semibold text-xl block mx-auto w-fit p-1">Customize your password</span>
+    <div className="border-2 border-black rounded-lg w-full flex-grow">
+      <Box className="p-2">
+        <span className="text-black font-semibold text-xl block mx-auto w-fit p-1">Customize your password</span>
       </Box>
-      <Box className="mt-3">
-        <span className="block my-2 font-semibold text-md w-fit mx-auto">Choose the length of the password</span>
-        <div className="w-4/6 mx-auto">
-          <Stack spacing={1} direction="row" alignItems="center">
-            <FaCircleMinus className="text-2xl"/>
-            <Slider
-              className="text-black block w-full mx-auto"
-              aria-label="Always visible"
-              defaultValue={10}
-            />
-            <FaCirclePlus className="text-2xl"/>
-          </Stack>
-        </div>
-      </Box>
-      <CustomizationButtons/>|
+      <CustomizationButtons/>
     </div>
   )
 }
