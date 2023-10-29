@@ -14,7 +14,7 @@ import { RxLetterCaseLowercase, RxLetterCaseUppercase } from "react-icons/rx"
 export default function Home() {
   return (
     <div className="w-screen h-screen flex justify-center items-center">
-      <main className="w-1/2 h-2/3 flex flex-col justify-between gap-16">
+      <main className="w-5/6 sm:w-8/12 md:w-7/12 lg:w-1/2 h-2/3 flex flex-col justify-between gap-16">
         <HeaderBlock/>
         <FooterBlock/>
       </main>
@@ -26,7 +26,7 @@ function HeaderBlock() {
   return (
     <div className="border-4 w-full border-black rounded-xl overflow-x-hidden">
       <Box className="bg-black p-2">
-      <div className="w-fit mx-auto">
+        <div className="w-fit mx-auto">
           <BsShieldFillCheck className="text-3xl inline mr-1 text-green-600"/>
           <span className="text-xl text-white font-semibold">Very strong</span>
         </div>
