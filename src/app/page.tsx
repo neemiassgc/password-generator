@@ -15,7 +15,8 @@ import { RxLetterCaseLowercase, RxLetterCaseUppercase } from "react-icons/rx"
 export default function Home() {
   return (
     <div className="w-screen h-screen flex justify-center items-center">
-      <main className="w-5/6 sm:w-8/12 md:w-7/12 lg:w-1/2 h-2/3 flex flex-col justify-start gap-7">
+      <main className="w-5/6 sm:w-8/12 md:w-7/12 lg:w-1/2 h-2/3 flex flex-col justify-start">
+        <StrengthIndicator/>
         <HeaderBlock/>
         <FooterBlock/>
       </main>
@@ -23,15 +24,20 @@ export default function Home() {
   )
 }
 
+function StrengthIndicator() {
+  return (
+    <div className="w-fit mx-auto mt-1 bg-red-500">
+      <BsShieldFillCheck className="text-3xl inline mr-1 text-green-600"/>
+      <span className="text-xl text-black font-semibold">Very strong</span>
+    </div>
+  )
+}
+
 function HeaderBlock() {
   return (
-    <div className="border-2 border-black border-b-4 border-t-4 shadow-2xl rounded-lg w-full overflow-x-hidden">
-      <Box className="my-2">
-        <div className="w-fit mx-auto mt-1">
-          <BsShieldFillCheck className="text-3xl inline mr-1 text-green-600"/>
-          <span className="text-xl text-black font-semibold">Very strong</span>
-        </div>
-        <span className="text-center w-fit mx-auto p-2 rounded-lg block text-2xl">asodjfalkçsdfmçaklsdf</span>
+    <div className="border-2 border-black border-b-4 border-t-4 shadow-2xl rounded-lg w-full overflow-x-hidden mb-7">
+      <Box className="my-1">
+        <span className="text-center w-fit mx-auto p-1 rounded-lg block text-2xl">asodjfalkçsdfmçaklsdf</span>
       </Box>
     </div>
   )
