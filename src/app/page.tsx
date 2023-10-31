@@ -4,8 +4,8 @@ import { useState } from "react"
 import Box from "@mui/material/Box"
 import Slider from "@mui/material/Slider"
 import Stack from "@mui/material/Stack"
-import Divider from "@mui/material/Divider"
-import { BsShieldFillCheck } from "react-icons/bs"
+import Button from "@mui/material/Button"
+import { BsShieldFillCheck, BsMagic } from "react-icons/bs"
 import { FaCirclePlus } from "react-icons/fa6"
 import { FaCircleMinus } from "react-icons/fa6"
 import { MdEmojiSymbols } from "react-icons/md"
@@ -18,9 +18,20 @@ export default function Home() {
       <main className="w-5/6 sm:w-8/12 md:w-7/12 lg:w-1/2 h-2/3 flex flex-col justify-start">
         <StrengthIndicator/>
         <HeaderBlock/>
+        <GeneratorButton/>
         <FooterBlock/>
       </main>
     </div>
+  )
+}
+
+function GeneratorButton() {
+  return ( 
+    <Box className="my-5 text-center transition ease-in-out duration-400 hover:scale-110 shadow-2xl">
+      <Button className="active:bg-red-500" component="label" variant="contained" startIcon={<BsMagic/>}>
+        Generate Password
+      </Button>
+    </Box>
   )
 }
 
@@ -35,7 +46,7 @@ function StrengthIndicator() {
 
 function HeaderBlock() {
   return (
-    <div className="border-2 border-black border-b-4 border-t-4 shadow-2xl rounded-lg w-full overflow-x-hidden mb-7">
+    <div className="border-2 border-black border-b-4 border-t-4 shadow-2xl rounded-lg w-full overflow-x-hidden">
       <Box className="my-1">
         <span className="text-center w-fit mx-auto p-1 rounded-lg block text-2xl">asodjfalkçsdfmçaklsdf</span>
       </Box>
