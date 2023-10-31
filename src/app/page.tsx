@@ -100,15 +100,6 @@ function CustomizationButtons() {
     setFlagKeys(flagKeysCopy);
   }
 
-  function CustomChip(props: any) {
-    return (
-      <div className={`border-2 hover:cursor-pointer border-black rounded-xl flex gap-1 p-2 items-center transition hover:scale-105 hover:shadow-xl ease-in-out ${props.flag ? "bg-black text-white" : "bg-white text-black hover:bg-gray-200"}`} onClick={props.onClick}>
-        {props.icon}
-        <span className="block font-semibold text-md">{props.label}</span>
-      </div>
-    );
-  }
-
   return (
     <div className="w-full p-3 mb-3">
       <Box className="w-full gap-2 lg:gap-0 flex flex-wrap justify-evenly">
@@ -135,6 +126,15 @@ function CustomizationButtons() {
       </Box> 
     </div>
   )
+}
+
+function CustomChip(props: {label: string, icon: JSX.Element, flag: boolean, onClick: () => void}) {
+  return (
+    <div className={`border-2 hover:cursor-pointer border-black rounded-xl flex gap-1 p-2 items-center transition hover:scale-105 hover:shadow-xl ease-in-out ${props.flag ? "bg-black text-white" : "bg-white text-black hover:bg-gray-200"}`} onClick={props.onClick}>
+      {props.icon}
+      <span className="block font-semibold text-md">{props.label}</span>
+    </div>
+  );
 }
 
 export const runtime = "edge";
