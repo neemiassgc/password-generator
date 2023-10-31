@@ -55,20 +55,29 @@ function HeaderBlock() {
 }
 
 function SliderBlock() {
+  const [value, setValue] = useState(10)
+
+  const handleSliderChange = (__: Event, newValue: number | number[]) => {
+    setValue(newValue as number)
+  }
+
   return (
     <Box className="mt-5">
       <div className="w-full text-center">
-        <span className="text-black text-lg text-md">Password Length: 5</span>
+        <span className="block text-black text-lg text-md">Password Length: <span>{value}</span></span>
       </div>
       <div className="w-5/6 mx-auto my-3">
         <Stack spacing={1} direction="row" alignItems="center">
-          <FaCircleMinus className="text-2xl"/>
+          <FaCircleMinus className="text-2xl hover:cursor-pointer transition ease-in-out duration-300 hover:scale-110" onClick={() => setValue(value - 1)}/>
           <Slider
             className="text-black block w-full mx-auto"
             aria-label="Always visible"
-            defaultValue={10}
+            value={value}
+            onChange={handleSliderChange}
+            min={0}
+            max={25}
           />
-          <FaCirclePlus className="text-2xl"/>
+          <FaCirclePlus className="text-2xl hover:cursor-pointer transition ease-in-out duration-300 hover:scale-125" onClick={() => setValue(value + 1)}/>
         </Stack>
       </div>
     </Box>
