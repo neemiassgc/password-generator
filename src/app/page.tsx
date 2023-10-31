@@ -99,7 +99,7 @@ function CustomizationButtons() {
 
   function CustomChip(props: any) {
     return (
-      <div className={`border-2 hover:cursor-pointer border-black rounded-full flex gap-1 p-2 items-center ${props.flag ? "bg-black text-white" : "bg-white text-black"}`} onClick={props.onClick}>
+      <div className={`border-2 hover:cursor-pointer border-black rounded-xl flex gap-1 p-2 items-center transition hover:scale-105 hover:shadow-xl ease-in-out ${props.flag ? "bg-black text-white" : "bg-white text-black hover:bg-gray-200"}`} onClick={props.onClick}>
         {props.icon}
         <span className="block font-semibold text-md">{props.label}</span>
       </div>
