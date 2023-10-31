@@ -88,13 +88,16 @@ function FooterBlock() {
 }
 
 function CustomizationButtons() {
-  const [numbersActive, setNumbersActive] = useState(false)
-  const [lowerCaseLettersActive, setLowerCaseLettersActive] = useState(false);
-  const [upperCaseLettersActive, setUpperCaseLettersActive] = useState(false);
-  const [symbolsActive, setSymbolsActive] = useState(false);
+  const [flagKeys, setFlagKeys] = useState([false, false, false, false]);
 
   const computeIconClasses: (flag: boolean) => string = flag => {
     return `text-2xl ${flag ? "text-white" : "text-black"}`
+  }
+
+  const toggleFlagKey: (index: number) => void = index => {
+    const flagKeysCopy: boolean[] = [...flagKeys];
+    flagKeysCopy[index] = !flagKeysCopy[index]
+    setFlagKeys(flagKeysCopy);
   }
 
   function CustomChip(props: any) {
@@ -110,25 +113,25 @@ function CustomizationButtons() {
     <div className="w-full p-3 mb-3">
       <Box className="w-full gap-2 lg:gap-0 flex flex-wrap justify-evenly">
         <CustomChip
-         flag={lowerCaseLettersActive}
+         flag={flagKeys[0]}
          label="Lowercase Letters"
-          icon={<RxLetterCaseLowercase className={computeIconClasses(lowerCaseLettersActive)}/>}
-          onClick={(): void => setLowerCaseLettersActive(!lowerCaseLettersActive)}/>
+          icon={<RxLetterCaseLowercase className={computeIconClasses(flagKeys[0])}/>}
+          onClick={(): void => toggleFlagKey(0)}/>
         <CustomChip
-         flag={upperCaseLettersActive}
+         flag={flagKeys[1]}
          label="Uppercase Letters"
-          icon={<RxLetterCaseUppercase className={computeIconClasses(upperCaseLettersActive)}/>}
-          onClick={(): void => setUpperCaseLettersActive(!upperCaseLettersActive)}/>
+          icon={<RxLetterCaseUppercase className={computeIconClasses(flagKeys[1])}/>}
+          onClick={(): void => toggleFlagKey(1)}/>
         <CustomChip
-         flag={numbersActive}
+         flag={flagKeys[2]}
          label="numbers"
-          icon={<TbNumbers className={computeIconClasses(numbersActive)}/>}
-          onClick={(): void => setNumbersActive(!numbersActive)}/>
+          icon={<TbNumbers className={computeIconClasses(flagKeys[2])}/>}
+          onClick={(): void => toggleFlagKey(2)}/>
         <CustomChip
-         flag={symbolsActive}
+         flag={flagKeys[3]}
          label="symbols"
-          icon={<MdEmojiSymbols className={computeIconClasses(symbolsActive)}/>}
-          onClick={(): void => setSymbolsActive(!symbolsActive)}/>
+          icon={<MdEmojiSymbols className={computeIconClasses(flagKeys[3])}/>}
+          onClick={(): void => toggleFlagKey(3)}/>
       </Box> 
     </div>
   )
