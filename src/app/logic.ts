@@ -1,4 +1,4 @@
-interface FlagMap {
+export interface FlagMap {
   [index: string]: boolean;
   lowercase: boolean;
   uppercase: boolean;
