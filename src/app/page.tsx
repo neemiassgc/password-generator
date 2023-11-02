@@ -11,17 +11,19 @@ import { FaCircleMinus } from "react-icons/fa6"
 import { MdEmojiSymbols } from "react-icons/md"
 import { TbNumbers } from "react-icons/tb"
 import { RxLetterCaseLowercase, RxLetterCaseUppercase } from "react-icons/rx"
+import { generatePassword, FlagMap } from "./logic"
 
 export default function Home() {
   const [flagKeys, setFlagKeys] = useState([false, false, false, false]);
   const [sliderBlockValue, setSliderBlockValue] = useState(10)
+  const [password, setPassword] = useState("");
 
   return (
     <div className="w-screen h-screen flex justify-center items-center">
       <main className="w-5/6 sm:w-8/12 md:w-7/12 lg:w-1/2 h-2/3 flex flex-col justify-start">
         <StrengthIndicator/>
-        <HeaderBlock/>
-        <GeneratorButton/>
+        <HeaderBlock password={password}/>
+        <GeneratorButton setPassword={setPassword} flagKeys={flagKeys} passwordLength={sliderBlockValue}/>
         <FooterBlock
           customizationButtons={{flagKeys: flagKeys, setFlagKeys: setFlagKeys}}
           sliderBlock={{value: sliderBlockValue, setValue: setSliderBlockValue}}
@@ -31,10 +33,22 @@ export default function Home() {
   )
 }
 
-function GeneratorButton() {
+function GeneratorButton(props: {flagKeys: boolean[], setPassword: (value: string) => void, passwordLength: number}) {
+  const handleClick: () => void = () => {
+    const charSetMapping: FlagMap = {
+      lowercase: props.flagKeys[0],
+      uppercase: props.flagKeys[1],
+      numbers: props.flagKeys[2],
+      symbols: props.flagKeys[3]
+    }
+
+    const generatedPassword: string = generatePassword(charSetMapping, props.passwordLength);
+    props.setPassword(generatedPassword);
+  }
+
   return ( 
     <Box className="my-5 text-center transition ease-in-out duration-400 hover:scale-110 shadow-2xl">
-      <Button className="active:bg-red-500" component="label" variant="contained" startIcon={<BsMagic/>}>
+      <Button className="active:bg-red-500" component="label" variant="contained" startIcon={<BsMagic/>} onClick={handleClick}>
         Generate Password
       </Button>
     </Box>
@@ -50,11 +64,11 @@ function StrengthIndicator() {
   )
 }
 
-function HeaderBlock() {
+function HeaderBlock({password}: {password: string}) {
   return (
     <div className="border-2 border-black border-b-4 border-t-4 shadow-2xl rounded-lg w-full overflow-x-hidden">
       <Box className="my-1">
-        <span className="text-center w-fit mx-auto p-1 rounded-lg block text-2xl">asodjfalkçsdfmçaklsdf</span>
+        <span className="text-center w-fit mx-auto p-1 rounded-lg block text-2xl">{password}</span>
       </Box>
     </div>
   )
