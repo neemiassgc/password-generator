@@ -11,10 +11,10 @@ import { FaCircleMinus } from "react-icons/fa6"
 import { MdEmojiSymbols } from "react-icons/md"
 import { TbNumbers } from "react-icons/tb"
 import { RxLetterCaseLowercase, RxLetterCaseUppercase } from "react-icons/rx"
-import { generatePassword, FlagMap } from "./logic"
+import { generatePassword, FlagMap, isThereOnlyOneFlagSelected } from "./logic"
 
 export default function Home() {
-  const [flagKeys, setFlagKeys] = useState([false, false, false, false]);
+  const [flagKeys, setFlagKeys] = useState([true, false, false, false]);
   const [sliderBlockValue, setSliderBlockValue] = useState(10)
   const [password, setPassword] = useState("");
 
@@ -124,7 +124,9 @@ function CustomizationButtons({flagKeys, setFlagKeys}: CustomizationButtonsType)
 
   const toggleFlagKey: (index: number) => void = index => {
     const flagKeysCopy: boolean[] = [...flagKeys];
-    flagKeysCopy[index] = !flagKeysCopy[index]
+    const flagToBeSet = !flagKeysCopy[index]
+    if (!flagToBeSet && isThereOnlyOneFlagSelected(flagKeys)) return;
+    flagKeysCopy[index] = flagToBeSet;
     setFlagKeys(flagKeysCopy);
   }
 
