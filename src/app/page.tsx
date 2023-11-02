@@ -13,13 +13,15 @@ import { TbNumbers } from "react-icons/tb"
 import { RxLetterCaseLowercase, RxLetterCaseUppercase } from "react-icons/rx"
 
 export default function Home() {
+  const [flagKeys, setFlagKeys] = useState([false, false, false, false]);
+
   return (
     <div className="w-screen h-screen flex justify-center items-center">
       <main className="w-5/6 sm:w-8/12 md:w-7/12 lg:w-1/2 h-2/3 flex flex-col justify-start">
         <StrengthIndicator/>
         <HeaderBlock/>
         <GeneratorButton/>
-        <FooterBlock/>
+        <FooterBlock customizationButtons={{flagKeys: flagKeys, setFlagKeys: setFlagKeys}} sliderBlock={{}}/>
       </main>
     </div>
   )
@@ -84,21 +86,21 @@ function SliderBlock() {
   );
 }
 
-function FooterBlock() {
+type CustomizationButtonsType = {flagKeys: boolean[], setFlagKeys: (value: boolean[]) => void}
+type SliderBlockType = {}
+function FooterBlock(props: {customizationButtons: CustomizationButtonsType, sliderBlock: object}) {
   return (
     <div className="border-2 border-black border-b-4 border-t-4 shadow-2xl rounded-lg w-full">
       <Box className="p-2 text-center bg-black">
         <span className="text-white text-2xl w-fit">Customize your password</span>
       </Box>
       <SliderBlock/>
-      <CustomizationButtons/>
+      <CustomizationButtons flagKeys={props.customizationButtons.flagKeys} setFlagKeys={props.customizationButtons.setFlagKeys}/>
     </div>
   )
 }
 
-function CustomizationButtons() {
-  const [flagKeys, setFlagKeys] = useState([false, false, false, false]);
-
+function CustomizationButtons({flagKeys, setFlagKeys}: CustomizationButtonsType) {
   const computeIconClasses: (flag: boolean) => string = flag => {
     return `text-2xl ${flag ? "text-white" : "text-black"}`
   }
