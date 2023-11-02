@@ -31,10 +31,11 @@ export function generatePassword(flagMap: FlagMap, length: number): string {
   let passwordBuilder: string = "";
 
   for (let i = 0; i < length; i++) {
-      const charSetKey: number = randomNumber(selectedCharSet.length);
+      const charSetIndex: number = randomNumber(selectedCharSet.length);
+      const charSetKey: string = selectedCharSet[charSetIndex];
       const charSet: string[] | number[] = charSetMapping[charSetKey]
-      const charSetIndex: number = randomNumber(charSet.length);
-      passwordBuilder += charSet[charSetIndex];
+      const charIndex: number = randomNumber(charSet.length);
+      passwordBuilder += charSet[charIndex];
   }
 
   return passwordBuilder;
@@ -50,5 +51,5 @@ function selectCharSet(flagMap: FlagMap): string[] {
 }
 
 function randomNumber(size: number): number {
-  return Math.round(Math.random() * size)
+  return Math.floor(Math.random() * size)
 }
