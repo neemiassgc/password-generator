@@ -14,6 +14,7 @@ import { RxLetterCaseLowercase, RxLetterCaseUppercase } from "react-icons/rx"
 
 export default function Home() {
   const [flagKeys, setFlagKeys] = useState([false, false, false, false]);
+  const [sliderBlockValue, setSliderBlockValue] = useState(10)
 
   return (
     <div className="w-screen h-screen flex justify-center items-center">
@@ -21,7 +22,10 @@ export default function Home() {
         <StrengthIndicator/>
         <HeaderBlock/>
         <GeneratorButton/>
-        <FooterBlock customizationButtons={{flagKeys: flagKeys, setFlagKeys: setFlagKeys}} sliderBlock={{}}/>
+        <FooterBlock
+          customizationButtons={{flagKeys: flagKeys, setFlagKeys: setFlagKeys}}
+          sliderBlock={{value: sliderBlockValue, setValue: setSliderBlockValue}}
+        />
       </main>
     </div>
   )
@@ -56,9 +60,22 @@ function HeaderBlock() {
   )
 }
 
-function SliderBlock() {
-  const [value, setValue] = useState(10)
+type CustomizationButtonsType = {flagKeys: boolean[], setFlagKeys: (value: boolean[]) => void}
+type SliderBlockType = {value: number, setValue: (value: number) => void}
 
+function FooterBlock(props: {customizationButtons: CustomizationButtonsType, sliderBlock: SliderBlockType}) {
+  return (
+    <div className="border-2 border-black border-b-4 border-t-4 shadow-2xl rounded-lg w-full">
+      <Box className="p-2 text-center bg-black">
+        <span className="text-white text-2xl w-fit">Customize your password</span>
+      </Box>
+      <SliderBlock value={props.sliderBlock.value} setValue={props.sliderBlock.setValue}/>
+      <CustomizationButtons flagKeys={props.customizationButtons.flagKeys} setFlagKeys={props.customizationButtons.setFlagKeys}/>
+    </div>
+  )
+}
+
+function SliderBlock({value, setValue}: SliderBlockType) {
   const handleSliderChange = (__: Event, newValue: number | number[]) => {
     setValue(newValue as number)
   }
@@ -84,20 +101,6 @@ function SliderBlock() {
       </div>
     </Box>
   );
-}
-
-type CustomizationButtonsType = {flagKeys: boolean[], setFlagKeys: (value: boolean[]) => void}
-type SliderBlockType = {}
-function FooterBlock(props: {customizationButtons: CustomizationButtonsType, sliderBlock: object}) {
-  return (
-    <div className="border-2 border-black border-b-4 border-t-4 shadow-2xl rounded-lg w-full">
-      <Box className="p-2 text-center bg-black">
-        <span className="text-white text-2xl w-fit">Customize your password</span>
-      </Box>
-      <SliderBlock/>
-      <CustomizationButtons flagKeys={props.customizationButtons.flagKeys} setFlagKeys={props.customizationButtons.setFlagKeys}/>
-    </div>
-  )
 }
 
 function CustomizationButtons({flagKeys, setFlagKeys}: CustomizationButtonsType) {
