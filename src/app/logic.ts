@@ -53,3 +53,10 @@ function selectCharSet(flagMap: FlagMap): string[] {
 function randomNumber(size: number): number {
   return Math.floor(Math.random() * size)
 }
+
+export function isThereOnlyOneFlagSelected(flagKeys: boolean[]): boolean {
+  let selectedFlagsCount = 0;
+  for (let flag of flagKeys)
+    if (flag) selectedFlagsCount++;
+  return selectedFlagsCount === 1;
+}
