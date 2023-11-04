@@ -9,19 +9,20 @@ import { BsShieldFillCheck, BsMagic } from "react-icons/bs"
 import { FaCirclePlus } from "react-icons/fa6"
 import { FaCircleMinus } from "react-icons/fa6"
 import { MdEmojiSymbols } from "react-icons/md"
+import { LuShieldAlert, LuShieldCheck, LuShieldClose, LuShieldQuestion, LuShield, LuCheckCheck } from "react-icons/lu"
 import { TbNumbers } from "react-icons/tb"
 import { RxLetterCaseLowercase, RxLetterCaseUppercase } from "react-icons/rx"
-import { generatePassword, FlagMap, isThereOnlyOneFlagSelected } from "./logic"
+import { generatePassword, FlagMap, isThereOnlyOneFlagSelected, Indicator, toSnakeCase, detectStrengthIndicator} from "./logic"
 
 export default function Home() {
   const [flagKeys, setFlagKeys] = useState([true, false, false, false]);
   const [sliderBlockValue, setSliderBlockValue] = useState(10)
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState("password");
 
   return (
     <div className="w-screen h-screen flex justify-center items-center">
       <main className="w-5/6 sm:w-8/12 md:w-7/12 lg:w-1/2 h-2/3 flex flex-col justify-start">
-        <StrengthIndicator/>
+        <StrengthIndicator flagKeys={flagKeys} passwordLength={password.length}/>
         <HeaderBlock password={password}/>
         <GeneratorButton setPassword={setPassword} flagKeys={flagKeys} passwordLength={sliderBlockValue}/>
         <FooterBlock
@@ -55,11 +56,31 @@ function GeneratorButton(props: {flagKeys: boolean[], setPassword: (value: strin
   )
 }
 
-function StrengthIndicator() {
+function StrengthIndicator(props: {flagKeys: boolean[], passwordLength: number}) {
+  type IndicatorToElementType = {
+    [index: string]: JSX.Element,
+    weak: JSX.Element,
+    too_weak: JSX.Element,
+    moderate: JSX.Element,
+    strong: JSX.Element,
+    very_strong: JSX.Element,
+    impossible_to_crack: JSX.Element 
+  }
+
+  const currentIndicator = detectStrengthIndicator(props.flagKeys, props.passwordLength);
+  const indicatorToIconMapping: IndicatorToElementType = {
+    too_weak: <LuShieldClose className="text-3xl inline mr-1 text-red-600"/>,
+    weak: <LuShieldAlert className="text-3xl inline mr-1 text-orange-600"/>,
+    moderate: <LuShieldQuestion className="text-3xl inline mr-1 text-yellow-600"/>,
+    strong: <LuShield className="text-3xl inline mr-1 text-blue-600"/>,
+    very_strong: <LuShieldCheck className="text-3xl inline mr-1 text-green-600"/>,
+    impossible_to_crack: <BsShieldFillCheck className="text-3xl inline mr-1 text-purple-600"/>
+  }
+
   return (
-    <div className="w-fit mx-auto mb-3">
-      <BsShieldFillCheck className="text-3xl inline mr-1 text-green-600"/>
-      <span className="text-xl text-black font-semibold">Very strong</span>
+    <div className="w-fit mx-auto mb-3 flex">
+      {indicatorToIconMapping[toSnakeCase(currentIndicator)]}
+      <span className="text-xl text-black font-semibold">{currentIndicator}</span>
     </div>
   )
 }
