@@ -60,3 +60,6 @@ export function isThereOnlyOneFlagSelected(flagKeys: boolean[]): boolean {
     if (flag) selectedFlagsCount++;
   return selectedFlagsCount === 1;
 }
+
+export type Indicator = "TOO WEAK" | "WEAK" | "MODERATE" | "STRONG" | "VERY STRONG" | "IMPOSSIBLE TO CRACK"
+}
