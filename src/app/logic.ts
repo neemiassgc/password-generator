@@ -55,10 +55,7 @@ function randomNumber(size: number): number {
 }
 
 export function isThereOnlyOneFlagSelected(flagKeys: boolean[]): boolean {
-  let selectedFlagsCount = 0;
-  for (let flag of flagKeys)
-    if (flag) selectedFlagsCount++;
-  return selectedFlagsCount === 1;
+  return verifySelectedFlagsCount(flagKeys, 1);
 }
 
 export type Indicator = "TOO WEAK" | "WEAK" | "MODERATE" | "STRONG" | "VERY STRONG" | "IMPOSSIBLE TO CRACK"
