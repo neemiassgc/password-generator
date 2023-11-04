@@ -80,4 +80,8 @@ function verifySelectedFlagsCount(flagKeys: boolean[], count: number): boolean {
     if (flag) selectedFlagsCount++;
   return selectedFlagsCount === count;
 }
+
+export function toSnakeCase(input: string): string {
+  const parts: string[] = input.toLowerCase().split(" ");
+  return parts.join("_");
 }
