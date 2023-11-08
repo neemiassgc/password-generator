@@ -5,7 +5,7 @@ import Box from "@mui/material/Box"
 import Slider from "@mui/material/Slider"
 import Stack from "@mui/material/Stack"
 import Button from "@mui/material/Button"
-import { BsShieldFillCheck, BsMagic } from "react-icons/bs"
+import { BsMagic, BsFire } from "react-icons/bs"
 import { FaCirclePlus } from "react-icons/fa6"
 import { FaCircleMinus } from "react-icons/fa6"
 import { MdEmojiSymbols } from "react-icons/md"
@@ -67,18 +67,18 @@ function StrengthIndicator(props: {flagKeys: boolean[], passwordLength: number})
     impossible_to_crack: JSX.Element 
   }
 
-  const currentIndicator = detectStrengthIndicator(props.flagKeys, props.passwordLength);
+  const currentIndicator: Indicator = detectStrengthIndicator(props.flagKeys, props.passwordLength);
   const indicatorToIconMapping: IndicatorToElementType = {
     too_weak: <LuShieldClose className="text-3xl inline mr-1 text-red-600"/>,
     weak: <LuShieldAlert className="text-3xl inline mr-1 text-orange-600"/>,
     moderate: <LuShieldQuestion className="text-3xl inline mr-1 text-yellow-600"/>,
     strong: <LuShield className="text-3xl inline mr-1 text-blue-600"/>,
     very_strong: <LuShieldCheck className="text-3xl inline mr-1 text-green-600"/>,
-    impossible_to_crack: <BsShieldFillCheck className="text-3xl inline mr-1 text-purple-600"/>
+    impossible_to_crack: <BsFire className="text-3xl inline mr-1 text-orange-600"/>
   }
 
   return (
-    <div className="w-fit mx-auto mb-3 flex">
+    <div className={"w-fit mx-auto mb-3 flex "+(currentIndicator === "IMPOSSIBLE TO CRACK" ? "items-end" : "items-center")}>
       {indicatorToIconMapping[toSnakeCase(currentIndicator)]}
       <span className="text-xl text-black font-semibold">{currentIndicator}</span>
     </div>
