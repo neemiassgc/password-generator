@@ -61,14 +61,11 @@ export function isThereOnlyOneFlagSelected(flagKeys: boolean[]): boolean {
 export type Indicator = "TOO WEAK" | "WEAK" | "MODERATE" | "STRONG" | "VERY STRONG" | "IMPOSSIBLE TO CRACK"
 
 export function detectStrengthIndicator(flagKeys: boolean[], length: number): Indicator {
-  if (length <= 5 && verifySelectedFlagsCount(flagKeys, 1)) return "TOO WEAK";
-  if (length >= 5 && length <= 8 && verifySelectedFlagsCount(flagKeys, 1)) return "WEAK";
-  if (length >= 9 && length <= 11 && verifySelectedFlagsCount(flagKeys, 2)) return "MODERATE";
-  if (length >= 12 && length <= 14 && (verifySelectedFlagsCount(flagKeys, 3) || verifySelectedFlagsCount(flagKeys, 4))) return "STRONG";
-  if (length >= 15 && length <= 17 && verifySelectedFlagsCount(flagKeys, 1)) return "MODERATE";
-  if (length >= 15 && length <= 17 && verifySelectedFlagsCount(flagKeys, 2)) return "STRONG";
-  if (length >= 15 && length <= 17 && (verifySelectedFlagsCount(flagKeys, 3) || verifySelectedFlagsCount(flagKeys, 4))) return "VERY STRONG";
-  return "WEAK";
+  if (verifySelectedFlagsCount(flagKeys, 1)) return withOneFlagKeySelected(length);
+  if (verifySelectedFlagsCount(flagKeys, 2)) return withTwoFlagKeysSelected(length);
+  if (verifySelectedFlagsCount(flagKeys, 3) || verifySelectedFlagsCount(flagKeys, 4)) return WithMoreThanTwoFlagKeysSelected(length);
+  return "IMPOSSIBLE TO CRACK";
+}
 }
 
 function verifySelectedFlagsCount(flagKeys: boolean[], count: number): boolean {
