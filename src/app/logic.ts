@@ -88,6 +88,12 @@ function withThreeCharSetsSelected(length: number): Indicator {
   if (length >= 11 && length <= 17) return "STRONG";
   else return "VERY STRONG";
 }
+
+function withAllCharSetsSelected(length: number): Indicator {
+  if (length <= 5) return "WEAK";
+  if (length >= 6 && length <= 8) return "STRONG";
+  if (length >= 9 && length <= 22) return "VERY STRONG";
+  else return "IMPOSSIBLE TO CRACK";
 }
 
 function verifySelectedFlagsCount(flagKeys: boolean[], count: number): boolean {
