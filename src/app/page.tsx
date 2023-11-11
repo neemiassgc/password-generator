@@ -19,37 +19,37 @@ export default function Home() {
   const [sliderBlockValue, setSliderBlockValue] = useState(10)
   const [password, setPassword] = useState("password");
 
+  const buildNewPassword: () => void = () => {
+    const charSetMapping: FlagMap = {
+      lowercase: flagKeys[0],
+      uppercase: flagKeys[1],
+      numbers: flagKeys[2],
+      symbols: flagKeys[3]
+    }
+
+    const generatedPassword: string = generatePassword(charSetMapping, sliderBlockValue);
+    setPassword(generatedPassword);
+  }
+
   return (
     <div className="w-screen h-screen flex justify-center items-center">
       <main className="w-5/6 sm:w-8/12 md:w-7/12 lg:w-1/2 h-2/3 flex flex-col justify-start">
         <StrengthIndicator flagKeys={flagKeys} passwordLength={password.length}/>
         <HeaderBlock password={password}/>
-        <GeneratorButton setPassword={setPassword} flagKeys={flagKeys} passwordLength={sliderBlockValue}/>
+        <GeneratorButton buildNewPassword={buildNewPassword}/>
         <FooterBlock
-          customizationButtons={{flagKeys: flagKeys, setFlagKeys: setFlagKeys}}
-          sliderBlock={{value: sliderBlockValue, setValue: setSliderBlockValue}}
+          customizationButtons={{flagKeys: flagKeys, setFlagKeys: setFlagKeys, buildNewPassword: buildNewPassword}}
+          sliderBlock={{value: sliderBlockValue, setValue: setSliderBlockValue, buildNewPassword: buildNewPassword}}
         />
       </main>
     </div>
   )
 }
 
-function GeneratorButton(props: {flagKeys: boolean[], setPassword: (value: string) => void, passwordLength: number}) {
-  const handleClick: () => void = () => {
-    const charSetMapping: FlagMap = {
-      lowercase: props.flagKeys[0],
-      uppercase: props.flagKeys[1],
-      numbers: props.flagKeys[2],
-      symbols: props.flagKeys[3]
-    }
-
-    const generatedPassword: string = generatePassword(charSetMapping, props.passwordLength);
-    props.setPassword(generatedPassword);
-  }
-
+function GeneratorButton({ buildNewPassword }: { buildNewPassword: () => void}) {
   return ( 
     <Box className="my-5 text-center transition ease-in-out duration-400 hover:scale-110 shadow-2xl">
-      <Button className="active:bg-red-500" component="label" variant="contained" startIcon={<BsMagic/>} onClick={handleClick}>
+      <Button className="active:bg-red-500" component="label" variant="contained" startIcon={<BsMagic/>} onClick={buildNewPassword}>
         Generate Password
       </Button>
     </Box>
@@ -95,24 +95,33 @@ function HeaderBlock({password}: {password: string}) {
   )
 }
 
-type CustomizationButtonsType = {flagKeys: boolean[], setFlagKeys: (value: boolean[]) => void}
-type SliderBlockType = {value: number, setValue: (value: number) => void}
-
+type CustomizationButtonsType = {flagKeys: boolean[], setFlagKeys: (value: boolean[]) => void, buildNewPassword: () => void}
+type SliderBlockType = {value: number, setValue: (value: number) => void, buildNewPassword: () => void}
 function FooterBlock(props: {customizationButtons: CustomizationButtonsType, sliderBlock: SliderBlockType}) {
   return (
     <div className="border-2 border-black border-b-4 border-t-4 shadow-2xl rounded-lg w-full">
       <Box className="p-2 text-center bg-black">
         <span className="text-white text-2xl w-fit">Customize your password</span>
       </Box>
-      <SliderBlock value={props.sliderBlock.value} setValue={props.sliderBlock.setValue}/>
-      <CustomizationButtons flagKeys={props.customizationButtons.flagKeys} setFlagKeys={props.customizationButtons.setFlagKeys}/>
+      <SliderBlock value={props.sliderBlock.value} setValue={props.sliderBlock.setValue} buildNewPassword={props.sliderBlock.buildNewPassword}/>
+      <CustomizationButtons
+        flagKeys={props.customizationButtons.flagKeys}
+        setFlagKeys={props.customizationButtons.setFlagKeys}
+        buildNewPassword={props.customizationButtons.buildNewPassword}
+      />
     </div>
   )
 }
 
-function SliderBlock({value, setValue}: SliderBlockType) {
+function SliderBlock({value, setValue, buildNewPassword}: SliderBlockType) {
   const handleSliderChange = (__: Event, newValue: number | number[]) => {
-    setValue(newValue as number)
+    setValue(newValue as number);
+    buildNewPassword();
+  }
+
+  const handleSliderChangeButtons: (input: number) => void = (input) => {
+    setValue(value + input);
+    buildNewPassword();
   }
 
   return (
@@ -122,7 +131,9 @@ function SliderBlock({value, setValue}: SliderBlockType) {
       </div>
       <div className="w-5/6 mx-auto my-3">
         <Stack spacing={1} direction="row" alignItems="center">
-          <FaCircleMinus className="text-2xl hover:cursor-pointer transition ease-in-out duration-300 hover:scale-110" onClick={() => setValue(value - 1)}/>
+          <FaCircleMinus className="text-2xl hover:cursor-pointer transition ease-in-out duration-300 hover:scale-110"
+            onClick={handleSliderChangeButtons.bind(null, -1)}
+          />
           <Slider
             className="text-black block w-full mx-auto"
             aria-label="Always visible"
@@ -131,14 +142,16 @@ function SliderBlock({value, setValue}: SliderBlockType) {
             min={0}
             max={25}
           />
-          <FaCirclePlus className="text-2xl hover:cursor-pointer transition ease-in-out duration-300 hover:scale-125" onClick={() => setValue(value + 1)}/>
+          <FaCirclePlus className="text-2xl hover:cursor-pointer transition ease-in-out duration-300 hover:scale-125"
+            onClick={handleSliderChangeButtons.bind(null, 1)}
+          />
         </Stack>
       </div>
     </Box>
   );
 }
 
-function CustomizationButtons({flagKeys, setFlagKeys}: CustomizationButtonsType) {
+function CustomizationButtons({flagKeys, setFlagKeys, buildNewPassword}: CustomizationButtonsType) {
   const computeIconClasses: (flag: boolean) => string = flag => {
     return `text-2xl ${flag ? "text-white" : "text-black"}`
   }
@@ -149,6 +162,7 @@ function CustomizationButtons({flagKeys, setFlagKeys}: CustomizationButtonsType)
     if (!flagToBeSet && isThereOnlyOneFlagSelected(flagKeys)) return;
     flagKeysCopy[index] = flagToBeSet;
     setFlagKeys(flagKeysCopy);
+    buildNewPassword();
   }
 
   return (
