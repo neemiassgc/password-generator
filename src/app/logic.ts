@@ -67,6 +67,13 @@ export function detectStrengthIndicator(flagKeys: boolean[], length: number): In
   if (verifySelectedFlagsCount(flagKeys, 4)) return withAllCharSetsSelected(length);
   return "IMPOSSIBLE TO CRACK";
 }
+
+function withOneCharSetSelected(length: number): Indicator {
+  if (length <= 8) return "TOO WEAK";
+  if (length >= 9 && length <= 14) return "WEAK";
+  if (length >= 15 && length <= 20) return "MODERATE";
+  else return "STRONG";
+}
 }
 
 function verifySelectedFlagsCount(flagKeys: boolean[], count: number): boolean {
