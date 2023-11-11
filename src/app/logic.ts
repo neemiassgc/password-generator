@@ -74,6 +74,13 @@ function withOneCharSetSelected(length: number): Indicator {
   if (length >= 15 && length <= 20) return "MODERATE";
   else return "STRONG";
 }
+
+function withTwoCharSetsSelected(length: number): Indicator {
+  if (length <= 5) return "TOO WEAK";
+  if (length >= 6 && length <= 10) return "WEAK";
+  if (length >= 11 && length <= 17) return "MODERATE";
+  else return "STRONG";
+}
 }
 
 function verifySelectedFlagsCount(flagKeys: boolean[], count: number): boolean {
