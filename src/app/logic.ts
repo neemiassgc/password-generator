@@ -61,9 +61,10 @@ export function isThereOnlyOneFlagSelected(flagKeys: boolean[]): boolean {
 export type Indicator = "TOO WEAK" | "WEAK" | "MODERATE" | "STRONG" | "VERY STRONG" | "IMPOSSIBLE TO CRACK"
 
 export function detectStrengthIndicator(flagKeys: boolean[], length: number): Indicator {
-  if (verifySelectedFlagsCount(flagKeys, 1)) return withOneFlagKeySelected(length);
-  if (verifySelectedFlagsCount(flagKeys, 2)) return withTwoFlagKeysSelected(length);
-  if (verifySelectedFlagsCount(flagKeys, 3) || verifySelectedFlagsCount(flagKeys, 4)) return WithMoreThanTwoFlagKeysSelected(length);
+  if (verifySelectedFlagsCount(flagKeys, 1)) return withOneCharSetSelected(length);
+  if (verifySelectedFlagsCount(flagKeys, 2)) return withTwoCharSetsSelected(length);
+  if (verifySelectedFlagsCount(flagKeys, 3)) return withThreeCharSetsSelected(length);
+  if (verifySelectedFlagsCount(flagKeys, 4)) return withAllCharSetsSelected(length);
   return "IMPOSSIBLE TO CRACK";
 }
 }
