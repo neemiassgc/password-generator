@@ -4,7 +4,7 @@ import { useState } from "react"
 import Box from "@mui/material/Box"
 import { generatePassword, FlagMap } from "./logic"
 import type { CustomizationButtonsType, SliderBlockType } from "./components";
-import { StrengthIndicator, GeneratorButton, CustomizationButtons, SliderBlock } from "./components";
+import { StrengthIndicator, ActionBox, CustomizationButtons, SliderBlock } from "./components";
 
 export default function Home() {
   const [flagKeys, setFlagKeys] = useState([true, false, false, false]);
@@ -28,7 +28,7 @@ export default function Home() {
       <main className="w-5/6 sm:w-8/12 md:w-7/12 lg:w-1/2 h-2/3 flex flex-col justify-start">
         <StrengthIndicator flagKeys={flagKeys} passwordLength={password.length}/>
         <HeaderBlock password={password}/>
-        <GeneratorButton buildNewPassword={buildNewPassword}/>
+        <ActionBox buildNewPassword={buildNewPassword}/>
         <FooterBlock
           customizationButtons={{flagKeys: flagKeys, setFlagKeys: setFlagKeys, buildNewPassword: buildNewPassword}}
           sliderBlock={{value: sliderBlockValue, setValue: setSliderBlockValue, buildNewPassword: buildNewPassword}}
@@ -40,7 +40,7 @@ export default function Home() {
 
 function HeaderBlock({password}: {password: string}) {
   return (
-    <div className="border-2 border-black border-b-4 border-t-4 shadow-2xl rounded-lg w-full overflow-x-hidden">
+    <div className="border-2 border-black border-b-4 border-t-4 rounded-lg w-full overflow-x-hidden">
       <Box className="my-1">
         <span className="text-center w-fit mx-auto p-1 rounded-lg block text-2xl">{password}</span>
       </Box>
@@ -50,7 +50,7 @@ function HeaderBlock({password}: {password: string}) {
 
 function FooterBlock(props: {customizationButtons: CustomizationButtonsType, sliderBlock: SliderBlockType}) {
   return (
-    <div className="border-2 border-black border-b-4 border-t-4 shadow-2xl rounded-lg w-full">
+    <div className="border-2 border-black border-b-4 border-t-4 rounded-lg w-full">
       <Box className="p-2 text-center bg-black">
         <span className="text-white text-2xl w-fit">Customize your password</span>
       </Box>

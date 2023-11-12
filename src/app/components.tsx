@@ -1,12 +1,14 @@
 import Slider from "@mui/material/Slider"
 import Stack from "@mui/material/Stack"
-import Button from "@mui/material/Button"
+import IconButton from "@mui/material/IconButton"
 import Box from "@mui/material/Box"
-import { BsMagic, BsFire } from "react-icons/bs"
+import {BsFire } from "react-icons/bs"
+import { HiOutlineClipboardDocumentList } from "react-icons/hi2"
 import { FaCirclePlus } from "react-icons/fa6"
 import { FaCircleMinus } from "react-icons/fa6"
 import { MdEmojiSymbols } from "react-icons/md"
-import { LuShieldAlert, LuShieldCheck, LuShieldClose, LuShieldQuestion, LuShield, LuCheckCheck } from "react-icons/lu"
+import { IoReload } from "react-icons/io5"
+import { LuShieldAlert, LuShieldCheck, LuShieldClose, LuShieldQuestion, LuShield} from "react-icons/lu"
 import { TbNumbers } from "react-icons/tb"
 import { RxLetterCaseLowercase, RxLetterCaseUppercase } from "react-icons/rx"
 import {  isThereOnlyOneFlagSelected, Indicator, toSnakeCase, detectStrengthIndicator } from "./logic"
@@ -40,12 +42,17 @@ export function StrengthIndicator(props: {flagKeys: boolean[], passwordLength: n
   )
 }
 
-export function GeneratorButton({ buildNewPassword }: { buildNewPassword: () => void}) {
+export function ActionBox({ buildNewPassword }: { buildNewPassword: () => void}) {
+  const transitionAnimation: string = " transition ease-in-out duration-400 hover:scale-105";
+
   return ( 
-    <Box className="my-5 text-center transition ease-in-out duration-400 hover:scale-110 shadow-2xl">
-      <Button className="active:bg-red-500" component="label" variant="contained" startIcon={<BsMagic/>} onClick={buildNewPassword}>
-        Generate Password
-      </Button>
+    <Box className="my-3 text-center">
+      <IconButton className={transitionAnimation} style={{marginRight: "20px", backgroundColor: "green"}} onClick={buildNewPassword} size="large">
+        <IoReload className="text-white"/>
+      </IconButton>
+      <IconButton className={transitionAnimation} style={{backgroundColor: "green"}} size="large">
+        <HiOutlineClipboardDocumentList className="text-white"/>
+      </IconButton>
     </Box>
   )
 }
