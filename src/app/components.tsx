@@ -3,7 +3,7 @@ import Stack from "@mui/material/Stack"
 import IconButton from "@mui/material/IconButton"
 import Box from "@mui/material/Box"
 import {BsFire } from "react-icons/bs"
-import { HiOutlineClipboardDocumentList } from "react-icons/hi2"
+import { HiOutlineClipboardDocumentList, HiOutlineClipboardDocumentCheck } from "react-icons/hi2"
 import { FaCirclePlus } from "react-icons/fa6"
 import { FaCircleMinus } from "react-icons/fa6"
 import { MdEmojiSymbols } from "react-icons/md"
@@ -12,6 +12,7 @@ import { LuShieldAlert, LuShieldCheck, LuShieldClose, LuShieldQuestion, LuShield
 import { TbNumbers } from "react-icons/tb"
 import { RxLetterCaseLowercase, RxLetterCaseUppercase } from "react-icons/rx"
 import {  isThereOnlyOneFlagSelected, Indicator, toSnakeCase, detectStrengthIndicator } from "./logic"
+import { useEffect, useState } from "react"
 
 export function StrengthIndicator(props: {flagKeys: boolean[], passwordLength: number}) {
   type IndicatorToElementType = {
@@ -42,16 +43,31 @@ export function StrengthIndicator(props: {flagKeys: boolean[], passwordLength: n
   )
 }
 
-export function ActionBox({ buildNewPassword }: { buildNewPassword: () => void}) {
+export function ActionBox(props: {buildNewPassword: () => void, password: string}) {
+  const [select, setSelect] = useState(false);
+
   const transitionAnimation: string = " transition ease-in-out duration-400 hover:scale-105";
+
+  const copyToClipboard: () => void = () => {
+    navigator.clipboard.writeText(props.password);
+    setSelect(true);
+  }
 
   return ( 
     <Box className="my-3 text-center">
-      <IconButton className={transitionAnimation} style={{marginRight: "20px", backgroundColor: "green"}} onClick={buildNewPassword} size="large">
+      <IconButton className={transitionAnimation} style={{marginRight: "20px", backgroundColor: "green"}} size="large" onClick={props.buildNewPassword}>
         <IoReload className="text-white"/>
       </IconButton>
-      <IconButton className={transitionAnimation} style={{backgroundColor: "green"}} size="large">
-        <HiOutlineClipboardDocumentList className="text-white"/>
+      <IconButton
+        className={transitionAnimation}
+        style={{backgroundColor: select ? "blue" : "green"}}
+        size="large" onClick={copyToClipboard}
+        disabled={select}>
+        {
+        !select
+          ? <HiOutlineClipboardDocumentList className="text-white"/>
+          : <HiOutlineClipboardDocumentCheck className="text-white"/>
+        }
       </IconButton>
     </Box>
   )

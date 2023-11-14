@@ -28,7 +28,7 @@ export default function Home() {
       <main className="w-5/6 sm:w-8/12 md:w-7/12 lg:w-1/2 h-2/3 flex flex-col justify-start">
         <StrengthIndicator flagKeys={flagKeys} passwordLength={password.length}/>
         <HeaderBlock password={password}/>
-        <ActionBox buildNewPassword={buildNewPassword}/>
+        <ActionBox key={password} buildNewPassword={buildNewPassword} password={password}/>
         <FooterBlock
           customizationButtons={{flagKeys: flagKeys, setFlagKeys: setFlagKeys, buildNewPassword: buildNewPassword}}
           sliderBlock={{value: sliderBlockValue, setValue: setSliderBlockValue, buildNewPassword: buildNewPassword}}
