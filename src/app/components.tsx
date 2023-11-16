@@ -12,7 +12,8 @@ import { LuShieldAlert, LuShieldCheck, LuShieldClose, LuShieldQuestion, LuShield
 import { TbNumbers } from "react-icons/tb"
 import { RxLetterCaseLowercase, RxLetterCaseUppercase } from "react-icons/rx"
 import {  isThereOnlyOneFlagSelected, Indicator, toSnakeCase, detectStrengthIndicator } from "./logic"
-import { useEffect, useState } from "react"
+import { useState } from "react"
+import { useClipboardChecking } from "./hooks"
 
 export function StrengthIndicator(props: {flagKeys: boolean[], passwordLength: number}) {
   type IndicatorToElementType = {
@@ -45,6 +46,7 @@ export function StrengthIndicator(props: {flagKeys: boolean[], passwordLength: n
 
 export function ActionBox(props: {buildNewPassword: () => void, password: string}) {
   const [select, setSelect] = useState(false);
+  const isAvailable: boolean = useClipboardChecking();
 
   const transitionAnimation: string = " transition ease-in-out duration-400 hover:scale-105";
 
@@ -58,17 +60,19 @@ export function ActionBox(props: {buildNewPassword: () => void, password: string
       <IconButton className={transitionAnimation} style={{marginRight: "20px", backgroundColor: "green"}} size="large" onClick={props.buildNewPassword}>
         <IoReload className="text-white"/>
       </IconButton>
-      <IconButton
-        className={transitionAnimation}
-        style={{backgroundColor: select ? "blue" : "green"}}
-        size="large" onClick={copyToClipboard}
-        disabled={select}>
-        {
-        !select
-          ? <HiOutlineClipboardDocumentList className="text-white"/>
-          : <HiOutlineClipboardDocumentCheck className="text-white"/>
-        }
-      </IconButton>
+      { isAvailable &&
+        <IconButton
+          className={transitionAnimation}
+          style={{backgroundColor: select ? "blue" : "green"}}
+          size="large" onClick={copyToClipboard}
+          disabled={select}>
+          {
+          !select
+            ? <HiOutlineClipboardDocumentList className="text-white"/>
+            : <HiOutlineClipboardDocumentCheck className="text-white"/>
+          }
+        </IconButton>
+      }
     </Box>
   )
 }
