@@ -6,7 +6,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: "Strong Password Generator",
-  description: 'A Web application that builds a strong password with custom',
+  description: 'A Web application that builds a strong password with customization',
 }
 
 export default function RootLayout({

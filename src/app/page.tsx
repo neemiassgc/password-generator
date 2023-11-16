@@ -25,7 +25,7 @@ export default function Home() {
 
   return (
     <div className="w-screen h-screen flex justify-center items-center">
-      <main className="w-5/6 sm:w-8/12 md:w-7/12 lg:w-1/2 h-4/5 sm:h-2/3 flex flex-col justify-start">
+      <main className="w-11/12 sm:w-8/12 md:w-7/12 lg:w-1/2 h-5/6 sm:h-2/3 flex flex-col justify-start">
         <StrengthIndicator flagKeys={flagKeys} passwordLength={password.length}/>
         <HeaderBlock password={password}/>
         <ActionBox key={password} buildNewPassword={buildNewPassword} password={password}/>
@@ -40,7 +40,7 @@ export default function Home() {
 
 function HeaderBlock({password}: {password: string}) {
   return (
-    <div className="border-2 border-black border-b-4 border-t-4 rounded-lg w-full overflow-x-hidden">
+    <div className="border-2 border-black border-b-4 border-t-4 rounded-lg w-full overflow-x-hidden shadow-2xl shadow-gray-500">
       <Box className="my-1">
         <span className="text-center w-fit mx-auto p-1 rounded-lg block text-2xl">{password}</span>
       </Box>
@@ -50,7 +50,7 @@ function HeaderBlock({password}: {password: string}) {
 
 function FooterBlock(props: {customizationButtons: CustomizationButtonsType, sliderBlock: SliderBlockType}) {
   return (
-    <div className="border-2 border-black border-b-4 border-t-4 rounded-lg w-full">
+    <div className="border-2 border-black border-b-4 border-t-4 rounded-lg w-full shadow-2xl shadow-gray-500">
       <Box className="p-2 text-center bg-black">
         <span className="text-white text-2xl w-fit">Customize your password</span>
       </Box>

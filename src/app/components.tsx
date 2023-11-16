@@ -48,7 +48,7 @@ export function ActionBox(props: {buildNewPassword: () => void, password: string
   const [select, setSelect] = useState(false);
   const isAvailable: boolean = useClipboardChecking();
 
-  const transitionAnimation: string = " transition ease-in-out duration-400 hover:scale-105";
+  const iconButtonClasses: string = "shadow-lg shadow-gray-500 transition ease-in-out duration-400 hover:scale-105";
 
   const copyToClipboard: () => void = () => {
     navigator.clipboard.writeText(props.password);
@@ -57,12 +57,12 @@ export function ActionBox(props: {buildNewPassword: () => void, password: string
 
   return ( 
     <Box className="my-3 text-center">
-      <IconButton className={transitionAnimation} style={{marginRight: "20px", backgroundColor: "green"}} size="large" onClick={props.buildNewPassword}>
+      <IconButton className={iconButtonClasses} style={{marginRight: "20px", backgroundColor: "green"}} size="large" onClick={props.buildNewPassword}>
         <IoReload className="text-white"/>
       </IconButton>
       { isAvailable &&
         <IconButton
-          className={transitionAnimation}
+          className={iconButtonClasses}
           style={{backgroundColor: select ? "blue" : "green"}}
           size="large" onClick={copyToClipboard}
           disabled={select}>
