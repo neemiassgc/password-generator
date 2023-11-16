@@ -25,7 +25,7 @@ export default function Home() {
 
   return (
     <div className="w-screen h-screen flex justify-center items-center">
-      <main className="w-5/6 sm:w-8/12 md:w-7/12 lg:w-1/2 h-2/3 flex flex-col justify-start">
+      <main className="w-5/6 sm:w-8/12 md:w-7/12 lg:w-1/2 h-4/5 sm:h-2/3 flex flex-col justify-start">
         <StrengthIndicator flagKeys={flagKeys} passwordLength={password.length}/>
         <HeaderBlock password={password}/>
         <ActionBox key={password} buildNewPassword={buildNewPassword} password={password}/>
