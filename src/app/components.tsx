@@ -107,7 +107,7 @@ export function SliderBlock({value, setValue, buildNewPassword}: SliderBlockType
             aria-label="Always visible"
             value={value}
             onChange={handleSliderChange}
-            min={0}
+            min={4}
             max={25}
           />
           <FaCirclePlus className="text-2xl hover:cursor-pointer transition ease-in-out duration-300 hover:scale-125"
