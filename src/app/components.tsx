@@ -12,7 +12,6 @@ import { LuShieldAlert, LuShieldCheck, LuShieldClose, LuShieldQuestion, LuShield
 import { TbNumbers } from "react-icons/tb"
 import { RxLetterCaseLowercase, RxLetterCaseUppercase } from "react-icons/rx"
 import {  isThereOnlyOneFlagSelected, Indicator, toSnakeCase, detectStrengthIndicator } from "./logic"
-import { useState } from "react"
 import { useClipboardChecking } from "./hooks"
 
 export function StrengthIndicator(props: {flagKeys: boolean[], passwordLength: number}) {
@@ -44,15 +43,19 @@ export function StrengthIndicator(props: {flagKeys: boolean[], passwordLength: n
   )
 }
 
-export function ActionBox(props: {buildNewPassword: () => void, password: string}) {
-  const [select, setSelect] = useState(false);
+type ActionBoxPropsType = {
+  buildNewPassword: () => void,
+  password: { value: string, copiedToClipboard: boolean},
+  setCopiedToClipboard: (value: boolean) => void
+}
+export function ActionBox(props: ActionBoxPropsType) {
   const isAvailable: boolean = useClipboardChecking();
 
   const iconButtonClasses: string = "shadow-lg shadow-gray-500 transition ease-in-out duration-400 hover:scale-105";
 
   const copyToClipboard: () => void = () => {
-    navigator.clipboard.writeText(props.password);
-    setSelect(true);
+    navigator.clipboard.writeText(props.password.value);
+    props.setCopiedToClipboard(true);
   }
 
   return ( 
@@ -63,11 +66,11 @@ export function ActionBox(props: {buildNewPassword: () => void, password: string
       { isAvailable &&
         <IconButton
           className={iconButtonClasses}
-          style={{backgroundColor: select ? "blue" : "green"}}
+          style={{backgroundColor: props.password.copiedToClipboard ? "blue" : "green"}}
           size="large" onClick={copyToClipboard}
-          disabled={select}>
+          disabled={props.password.copiedToClipboard}>
           {
-          !select
+          !props.password.copiedToClipboard
             ? <HiOutlineClipboardDocumentList className="text-white"/>
             : <HiOutlineClipboardDocumentCheck className="text-white"/>
           }

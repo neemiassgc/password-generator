@@ -9,7 +9,13 @@ import { StrengthIndicator, ActionBox, CustomizationButtons, SliderBlock } from 
 export default function Home() {
   const [flagKeys, setFlagKeys] = useState([true, false, false, false]);
   const [sliderBlockValue, setSliderBlockValue] = useState(10)
-  const [password, setPassword] = useState("password");
+  const [password, setPassword] = useState({value: "password", copiedToClipboard: false});
+
+  const setCopiedToClipboard: (input: boolean) => void = input => {
+    const newPassword = {...password};
+    newPassword.copiedToClipboard = input;
+    setPassword(newPassword);
+  }
 
   const buildNewPassword: () => void = () => {
     const charSetMapping: FlagMap = {
@@ -20,15 +26,15 @@ export default function Home() {
     }
 
     const generatedPassword: string = generatePassword(charSetMapping, sliderBlockValue);
-    setPassword(generatedPassword);
+    setPassword({value: generatedPassword, copiedToClipboard: false});
   }
 
   return (
     <div className="w-screen h-screen flex justify-center items-center">
       <main className="w-11/12 sm:w-8/12 md:w-7/12 lg:w-1/2 h-5/6 sm:h-2/3 flex flex-col justify-start">
-        <StrengthIndicator flagKeys={flagKeys} passwordLength={password.length}/>
-        <HeaderBlock password={password}/>
-        <ActionBox key={password} buildNewPassword={buildNewPassword} password={password}/>
+        <StrengthIndicator flagKeys={flagKeys} passwordLength={password.value.length}/>
+        <HeaderBlock password={password.value}/>
+        <ActionBox setCopiedToClipboard={setCopiedToClipboard} buildNewPassword={buildNewPassword} password={password}/>
         <FooterBlock
           customizationButtons={{flagKeys: flagKeys, setFlagKeys: setFlagKeys, buildNewPassword: buildNewPassword}}
           sliderBlock={{value: sliderBlockValue, setValue: setSliderBlockValue, buildNewPassword: buildNewPassword}}
