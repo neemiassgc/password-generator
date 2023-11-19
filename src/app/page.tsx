@@ -46,9 +46,9 @@ export default function Home() {
 
 function HeaderBlock({password}: {password: string}) {
   return (
-    <div className="border-2 border-black border-b-4 border-t-4 rounded-lg w-full overflow-x-hidden shadow-2xl shadow-gray-500 bg-white">
+    <div className="border-2 border-black border-b-4 border-t-4 rounded-lg w-full overflow-x-hidden shadow-2xl shadow-gray-500 bg-white overflow-hidden">
       <Box className="my-1">
-        <span className="text-center w-fit mx-auto p-1 rounded-lg block text-2xl">{password}</span>
+        <span key={password} className="block text-center w-fit mx-auto p-1 rounded-lg text-2xl">{password}</span>
       </Box>
     </div>
   )
