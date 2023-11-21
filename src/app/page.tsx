@@ -30,8 +30,8 @@ export default function Home() {
   }
 
   return (
-    <div style={{backgroundImage: `url("./cool-background.png")`}} className="w-screen h-screen flex justify-center items-center">
-      <main className="w-11/12 sm:w-8/12 md:w-7/12 lg:w-1/2 h-5/6 sm:h-2/3 flex flex-col justify-start">
+    <div className="w-screen h-screen flex justify-center items-center bg-primary">
+      <main className="w-11/12 sm:w-8/12 md:w-9/12 lg:w-2/3 xl:w-1/2 h-9/12 sm:h-9/12 flex flex-col justify-start box-border bg-white p-5 sm:p-8 rounded-2xl border-4 border-black">
         <StrengthIndicator flagKeys={flagKeys} passwordLength={password.value.length}/>
         <HeaderBlock password={password.value}/>
         <ActionBox setCopiedToClipboard={setCopiedToClipboard} buildNewPassword={buildNewPassword} password={password}/>
@@ -46,8 +46,8 @@ export default function Home() {
 
 function HeaderBlock({password}: {password: string}) {
   return (
-    <div className="border-2 border-black border-b-4 border-t-4 rounded-lg w-full overflow-x-hidden shadow-2xl shadow-gray-500 bg-white overflow-hidden">
-      <Box className="my-1">
+    <div className="border-2 border-black border-b-4 border-t-4 rounded-lg w-full bg-white overflow-scroll box-border whitespace-nowrap">
+      <Box className="my-1 w-full">
         <span key={password} className="block text-center w-fit mx-auto p-1 rounded-lg text-2xl">{password}</span>
       </Box>
     </div>
@@ -56,8 +56,8 @@ function HeaderBlock({password}: {password: string}) {
 
 function FooterBlock(props: {customizationButtons: CustomizationButtonsType, sliderBlock: SliderBlockType}) {
   return (
-    <div className="border-2 border-black border-b-4 border-t-4 rounded-lg w-full shadow-2xl shadow-gray-500 bg-white">
-      <Box className="p-2 text-center bg-black">
+    <div className="border-2 border-black border-b-4 border-t-4 rounded-lg w-full bg-white">
+      <Box className="p-2 text-center bg-black border-b-4 border-black">
         <span className="text-white text-2xl w-fit">Customize your password</span>
       </Box>
       <SliderBlock value={props.sliderBlock.value} setValue={props.sliderBlock.setValue} buildNewPassword={props.sliderBlock.buildNewPassword}/>

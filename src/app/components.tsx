@@ -51,7 +51,7 @@ type ActionBoxPropsType = {
 export function ActionBox(props: ActionBoxPropsType) {
   const isAvailable: boolean = useClipboardChecking();
 
-  const iconButtonClasses: string = "shadow-lg shadow-gray-500 transition ease-in-out duration-400 hover:scale-105";
+  const iconButtonClasses: string = "transition ease-in-out duration-400 hover:scale-105";
 
   const copyToClipboard: () => void = () => {
     navigator.clipboard.writeText(props.password.value);
@@ -60,13 +60,13 @@ export function ActionBox(props: ActionBoxPropsType) {
 
   return ( 
     <Box className="my-3 text-center">
-      <IconButton className={iconButtonClasses} style={{marginRight: "20px", backgroundColor: "green"}} size="large" onClick={props.buildNewPassword}>
+      <IconButton className={iconButtonClasses} style={{marginRight: "20px", backgroundColor: "#4477CE"}} size="large" onClick={props.buildNewPassword}>
         <IoReload className="text-white"/>
       </IconButton>
       { isAvailable &&
         <IconButton
           className={iconButtonClasses}
-          style={{backgroundColor: props.password.copiedToClipboard ? "blue" : "green"}}
+          style={{backgroundColor: props.password.copiedToClipboard ? "#8CABFF" : "#4477CE"}}
           size="large" onClick={copyToClipboard}
           disabled={props.password.copiedToClipboard}>
           {
@@ -99,18 +99,19 @@ export function SliderBlock({value, setValue, buildNewPassword}: SliderBlockType
       </div>
       <div className="w-5/6 mx-auto my-3">
         <Stack spacing={1} direction="row" alignItems="center">
-          <FaCircleMinus className="text-2xl hover:cursor-pointer transition ease-in-out duration-300 hover:scale-110"
+          <FaCircleMinus className="text-2xl hover:cursor-pointer transition ease-in-out duration-300 hover:scale-110 text-secondary"
             onClick={handleSliderChangeButtons.bind(null, -1)}
           />
           <Slider
-            className="text-black block w-full mx-auto"
+            style={{color: "#4477CE"}}
+            className="block w-full mx-auto"
             aria-label="Always visible"
             value={value}
             onChange={handleSliderChange}
             min={4}
             max={25}
           />
-          <FaCirclePlus className="text-2xl hover:cursor-pointer transition ease-in-out duration-300 hover:scale-125"
+          <FaCirclePlus className="text-2xl hover:cursor-pointer transition ease-in-out duration-300 hover:scale-125 text-secondary"
             onClick={handleSliderChangeButtons.bind(null, 1)}
           />
         </Stack>
@@ -136,7 +137,7 @@ export function CustomizationButtons({flagKeys, setFlagKeys, buildNewPassword}: 
 
   return (
     <div className="w-full p-3 mb-3">
-      <Box className="w-full gap-2 lg:gap-0 flex flex-wrap justify-evenly">
+      <Box className="w-full gap-2 md:gap-0 flex flex-wrap justify-evenly">
         <CustomChip
          flag={flagKeys[0]}
          label="Lowercase Letters"
