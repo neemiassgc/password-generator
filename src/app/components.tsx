@@ -60,7 +60,20 @@ export function ActionBox(props: ActionBoxPropsType) {
 
   return ( 
     <Box className="my-3 text-center">
-      <IconButton className={iconButtonClasses} style={{marginRight: "20px", backgroundColor: "#4477CE"}} size="large" onClick={props.buildNewPassword}>
+      <IconButton
+        className={iconButtonClasses}
+        sx={{
+          marginRight: "20px", backgroundColor: "#4477CE",
+          "&:hover": {
+            backgroundColor: "#4477CE"
+          },
+          "&:active": {
+            backgroundColor: "#8CABFF"
+          }
+        }}
+        size="large"
+        onClick={props.buildNewPassword}
+      >
         <IoReload className="text-white"/>
       </IconButton>
       { isAvailable &&
