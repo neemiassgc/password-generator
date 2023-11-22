@@ -11,8 +11,10 @@ import { IoReload } from "react-icons/io5"
 import { LuShieldAlert, LuShieldCheck, LuShieldClose, LuShieldQuestion, LuShield} from "react-icons/lu"
 import { TbNumbers } from "react-icons/tb"
 import { RxLetterCaseLowercase, RxLetterCaseUppercase } from "react-icons/rx"
+import { FaRegCircleCheck, FaCircleCheck } from "react-icons/fa6";
 import {  isThereOnlyOneFlagSelected, Indicator, toSnakeCase, detectStrengthIndicator } from "./logic"
 import { useClipboardChecking } from "./hooks"
+import { Checkbox } from "@mui/material"
 
 export function StrengthIndicator(props: {flagKeys: boolean[], passwordLength: number}) {
   type IndicatorToElementType = {
@@ -63,12 +65,12 @@ export function ActionBox(props: ActionBoxPropsType) {
       <IconButton
         className={iconButtonClasses}
         sx={{
-          marginRight: "20px", backgroundColor: "#4477CE",
+          marginRight: "20px", backgroundColor: "#801336",
           "&:hover": {
-            backgroundColor: "#4477CE"
+            backgroundColor: "#801336"
           },
           "&:active": {
-            backgroundColor: "#8CABFF"
+            backgroundColor: "#EE4540"
           }
         }}
         size="large"
@@ -79,7 +81,7 @@ export function ActionBox(props: ActionBoxPropsType) {
       { isAvailable &&
         <IconButton
           className={iconButtonClasses}
-          style={{backgroundColor: props.password.copiedToClipboard ? "#8CABFF" : "#4477CE"}}
+          style={{backgroundColor: props.password.copiedToClipboard ? "#EE4540" : "#801336"}}
           size="large" onClick={copyToClipboard}
           disabled={props.password.copiedToClipboard}>
           {
@@ -112,11 +114,11 @@ export function SliderBlock({value, setValue, buildNewPassword}: SliderBlockType
       </div>
       <div className="w-5/6 mx-auto my-3">
         <Stack spacing={1} direction="row" alignItems="center">
-          <FaCircleMinus className="text-2xl hover:cursor-pointer transition ease-in-out duration-300 hover:scale-110 text-secondary"
+          <FaCircleMinus className="text-2xl hover:cursor-pointer transition ease-in-out duration-300 hover:scale-110 text-primary"
             onClick={handleSliderChangeButtons.bind(null, -1)}
           />
           <Slider
-            style={{color: "#4477CE"}}
+            style={{color: "#EE4540"}}
             className="block w-full mx-auto"
             aria-label="Always visible"
             value={value}
@@ -124,7 +126,7 @@ export function SliderBlock({value, setValue, buildNewPassword}: SliderBlockType
             min={4}
             max={25}
           />
-          <FaCirclePlus className="text-2xl hover:cursor-pointer transition ease-in-out duration-300 hover:scale-125 text-secondary"
+          <FaCirclePlus className="text-2xl hover:cursor-pointer transition ease-in-out duration-300 hover:scale-125 text-primary"
             onClick={handleSliderChangeButtons.bind(null, 1)}
           />
         </Stack>
@@ -135,10 +137,6 @@ export function SliderBlock({value, setValue, buildNewPassword}: SliderBlockType
 
 export type CustomizationButtonsType = {flagKeys: boolean[], setFlagKeys: (value: boolean[]) => void, buildNewPassword: () => void}
 export function CustomizationButtons({flagKeys, setFlagKeys, buildNewPassword}: CustomizationButtonsType) {
-  const computeIconClasses: (flag: boolean) => string = flag => {
-    return `text-2xl ${flag ? "text-white" : "text-black"}`
-  }
-
   const toggleFlagKey: (index: number) => void = index => {
     const flagKeysCopy: boolean[] = [...flagKeys];
     const flagToBeSet = !flagKeysCopy[index]
@@ -150,36 +148,37 @@ export function CustomizationButtons({flagKeys, setFlagKeys, buildNewPassword}: 
 
   return (
     <div className="w-full p-3 mb-3">
-      <Box className="w-full gap-2 md:gap-0 flex flex-wrap justify-evenly">
+      <Box className="w-full gap-2 lg:gap-0 flex flex-wrap justify-evenly">
         <CustomChip
-         flag={flagKeys[0]}
-         label="Lowercase Letters"
-          icon={<RxLetterCaseLowercase className={computeIconClasses(flagKeys[0])}/>}
+          flag={flagKeys[0]}
+          label="Lowercase Letters"
           onClick={(): void => toggleFlagKey(0)}/>
         <CustomChip
          flag={flagKeys[1]}
          label="Uppercase Letters"
-          icon={<RxLetterCaseUppercase className={computeIconClasses(flagKeys[1])}/>}
           onClick={(): void => toggleFlagKey(1)}/>
         <CustomChip
-         flag={flagKeys[2]}
-         label="numbers"
-          icon={<TbNumbers className={computeIconClasses(flagKeys[2])}/>}
+          flag={flagKeys[2]}
+          label="numbers"
           onClick={(): void => toggleFlagKey(2)}/>
         <CustomChip
-         flag={flagKeys[3]}
-         label="symbols"
-          icon={<MdEmojiSymbols className={computeIconClasses(flagKeys[3])}/>}
+          flag={flagKeys[3]}
+          label="symbols"
           onClick={(): void => toggleFlagKey(3)}/>
       </Box> 
     </div>
   )
 }
 
-function CustomChip(props: {label: string, icon: JSX.Element, flag: boolean, onClick: () => void}) {
+function CustomChip(props: {label: string, flag: boolean, onClick: () => void}) {
+  const defaultClasses: string = "border-2 border-black hover:cursor-pointer rounded-xl flex gap-1 p-2 items-center transition hover:scale-105 hover:shadow-xl ease-in-out";
+
   return (
-    <div className={`border-2 hover:cursor-pointer border-black rounded-xl flex gap-1 p-2 items-center transition hover:scale-105 hover:shadow-xl ease-in-out ${props.flag ? "bg-black text-white" : "bg-white text-black hover:bg-gray-200"}`} onClick={props.onClick}>
-      {props.icon}
+    <div className={`${defaultClasses} ${props.flag ? "border-primary text-primary" : "text-black"}`} onClick={props.onClick}>
+      {
+        props.flag ? <FaCircleCheck className="text-primary text-2xl"/> :
+        <FaRegCircleCheck className="text-black text-2xl"/>
+      }
       <span className="block font-semibold text-md">{props.label}</span>
     </div>
   );

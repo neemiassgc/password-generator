@@ -57,7 +57,7 @@ function HeaderBlock({password}: {password: string}) {
 function FooterBlock(props: {customizationButtons: CustomizationButtonsType, sliderBlock: SliderBlockType}) {
   return (
     <div className="border-2 border-black border-b-4 border-t-4 rounded-lg w-full">
-      <Box className="p-2 text-center bg-black border-b-4 border-black">
+      <Box className="p-2 text-center bg-black">
         <span className="text-white text-2xl w-fit">Customize your password</span>
       </Box>
       <SliderBlock value={props.sliderBlock.value} setValue={props.sliderBlock.setValue} buildNewPassword={props.sliderBlock.buildNewPassword}/>
