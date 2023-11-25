@@ -23,7 +23,7 @@ A simple Web App to generate strong passwords hosted on *Vercel*. It was made wi
 ## Preview on Mobile :fire::iphone:
 [<img src="https://static-10.s3.sa-east-1.amazonaws.com/mobile-video.gif" width="320" height="600"/>]
 
-## Demo :video-game:
+## Demo :video_game:
 This application is hosted on Vercel and it can be viewed on the following link: https://password-generator-next.vercel.app/
 
 ## Technologies :hammer:
