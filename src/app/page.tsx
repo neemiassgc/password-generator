@@ -1,101 +1,122 @@
-import Image from "next/image";
+"use client"
+
+import { Button, Text, Slider, Box, Switch, Separator, IconButton } from "@radix-ui/themes";
+import { useState } from "react";
+import { generatePassword, CharOptions } from "./logic";
+import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
+import { FaRegCheckCircle, FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
+
+type CharsUnion = "lowercase" | "uppercase" | "numbers" | "special";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [passwordLength, setPasswordLength] = useState(5);
+  const [password, setPassword] = useState("");
+  const [charOptions, setCharOptions] = useState<CharOptions>({
+    lowercase: true,
+    uppercase: false,
+    numbers: false,
+    special: false,
+  })
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  const charOptionsSetter = (value: CharsUnion) => () => {
+    setCharOptions({...charOptions, [value]: !charOptions[value]})
+  }
+
+  return (
+    <div className="flex justify-center">
+      <Box className="w-1/2 border border-gray-300 rounded-xl shadow-lg mt-24" p="9">
+        <div className="flex justify-center">
+          <PasswordField value={password}/>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        <div className="flex justify-center my-3">
+          <Button size="3" className="hover:cursor-pointer active:cursor-default"
+            onClick={() => setPassword(generatePassword(charOptions, passwordLength))}>GENERATE</Button>
+        </div>
+        <Separator mt="3" size="4" />
+        <Box className="w-full" p="3">
+          <LengthAdjuster/>
+          <Slider size="3" min={3} max={25} value={[passwordLength]} defaultValue={[1]} onValueChange={value => setPasswordLength(value[0])}/>
+          <CharSettings charOptions={charOptions} charOptionsSetter={charOptionsSetter}/>
+        </Box>
+      </Box>
     </div>
   );
+}
+
+function PasswordField(props: {value: string}) {
+  const [clipboardChecked, setClipBoardChecked] = useState(false);
+
+  return (
+    <Box className="w-1/2 border border-gray-300 rounded-lg" p="3">
+      <IconButton onClick={() => setClipBoardChecked(!clipboardChecked)} className="hover:cursor-pointer" mr="3" variant="ghost" size="3">
+        {
+          clipboardChecked ? <FaRegCheckCircle className="text-2xl text-green-500"/>
+           : <HiOutlineClipboardDocumentList className="text-2xl"/>
+        }
+      </IconButton>
+      <Text className="font-italic" style={{letterSpacing: "0.1em"}} size="4">{props.value}</Text>
+    </Box>
+  )
+}
+
+function CharSettings(props: {charOptions: CharOptions, charOptionsSetter: (value: CharsUnion) => () => void}) {
+  const optionsMap: {[prop: string]: string} = {
+    "numbers": "Include Numbers",
+    "lowercase": "Include Lowercase Letters",
+    "uppercase": "Include Uppercase Letters",
+    "special": "Include Special Chars"
+  }
+
+  return (
+    <div className="flex flex-wrap my-8 justify-center gap-7">
+      {
+        Object.keys(optionsMap).map((option, index) => 
+          <Text key={index} className="hover:cursor-pointer active:cursor-default" as="label" size="3">
+            <Switch className="hover:cursor-pointer active:cursor-default"
+              mr="2"
+              size="2"
+              checked={props.charOptions[option]}
+              onCheckedChange={props.charOptionsSetter(option as CharsUnion)}
+            />
+            {optionsMap[option]}
+          </Text>
+        )
+      }
+    </div>
+  )
+}
+
+function LengthAdjuster() {
+  const [value, setValue] = useState(5);
+  const [disabled, setDisabled] = useState({left: false, right: false});
+
+  const validateLength = (length: number) => {
+    if (length == 4) setDisabled({...disabled, left: true});
+    if (length == 25) setDisabled({...disabled, right: true});
+    if (length > 4 && length < 25) setDisabled({left: false, right: false});
+    return length;
+  }
+
+  const minus = () => () => setValue(validateLength(value - 1));
+  const plus = () => () => setValue(validateLength(value + 1));
+
+  return (
+    <Box className="w-fit mx-auto" my="3">
+      <IconButton radius="full" disabled={disabled.left}
+        mr="4" variant="ghost" size="1"
+        className={disabled.left ? "" : "hover:cursor-pointer active:cursor-default"}
+        onClick={minus()}
+      >
+        <FaArrowCircleLeft className="text-3xl"/>
+      </IconButton>
+      <Text className="text-xl">{value < 10 ? "0"+value : value}</Text>
+      <IconButton radius="full" disabled={disabled.right}
+        ml="4" variant="ghost" size="1"
+        className={disabled.right ? "" : "hover:cursor-pointer active:cursor-default"}
+        onClick={plus()}
+      >
+        <FaArrowCircleRight className="text-3xl"/>
+      </IconButton>
+    </Box>
+  )
 }
