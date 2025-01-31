@@ -9,6 +9,14 @@ import { FaRegCheckCircle, FaArrowCircleLeft, FaArrowCircleRight } from "react-i
 type CharsUnion = "lowercase" | "uppercase" | "numbers" | "special";
 
 export default function Home() {
+  return (
+    <div className="flex justify-center">
+      <Panel/>
+    </div>
+  );
+}
+
+function Panel() {
   const [passwordLength, setPasswordLength] = useState(5);
   const [password, setPassword] = useState("");
   const [charOptions, setCharOptions] = useState<CharOptions>({
@@ -26,24 +34,22 @@ export default function Home() {
   }
 
   return (
-    <div className="flex justify-center">
-      <Box className="w-1/2 border border-gray-300 rounded-xl shadow-lg mt-24 bg-white" p="9">
-        <div className="flex justify-center">
-          <PasswordField value={password}/>
-        </div>
-        <div className="flex justify-center my-3">
-          <Button size="3" className="hover:cursor-pointer active:cursor-default"
-            onClick={() => setPassword(generatePassword(charOptions, passwordLength))}>GENERATE</Button>
-        </div>
-        <Separator mt="3" size="4" />
-        <Box className="w-full" p="3">
-          <LengthAdjuster/>
-          <Slider size="3" min={3} max={25} value={[passwordLength]} defaultValue={[1]} onValueChange={value => setPasswordLength(value[0])}/>
-          <CharSettings charOptions={charOptions} charOptionsSetter={charOptionsSetter}/>
-        </Box>
+    <Box className="w-1/2 border border-gray-300 rounded-xl shadow-lg mt-24 bg-white" p="9">
+      <div className="flex justify-center">
+        <PasswordField value={password}/>
+      </div>
+      <div className="flex justify-center my-3">
+        <Button size="3" className="hover:cursor-pointer active:cursor-default"
+          onClick={() => setPassword(generatePassword(charOptions, passwordLength))}>GENERATE</Button>
+      </div>
+      <Separator mt="3" size="4" />
+      <Box className="w-full" p="3">
+        <LengthAdjuster/>
+        <Slider size="3" min={3} max={25} value={[passwordLength]} defaultValue={[1]} onValueChange={value => setPasswordLength(value[0])}/>
+        <CharSettings charOptions={charOptions} charOptionsSetter={charOptionsSetter}/>
       </Box>
-    </div>
-  );
+    </Box>
+  )
 }
 
 function PasswordField(props: {value: string}) {
