@@ -19,12 +19,15 @@ export default function Home() {
   })
 
   const charOptionsSetter = (value: CharsUnion) => () => {
+    const numberOfSelectedOptions = Object.keys(charOptions).filter(option => charOptions[option]).length;
+    if (numberOfSelectedOptions === 1 && charOptions[value]) return;
+
     setCharOptions({...charOptions, [value]: !charOptions[value]})
   }
 
   return (
     <div className="flex justify-center">
-      <Box className="w-1/2 border border-gray-300 rounded-xl shadow-lg mt-24" p="9">
+      <Box className="w-1/2 border border-gray-300 rounded-xl shadow-lg mt-24 bg-white" p="9">
         <div className="flex justify-center">
           <PasswordField value={password}/>
         </div>
