@@ -4,13 +4,13 @@ import { Button, Text, Slider, Box, Switch, Separator, IconButton } from "@radix
 import { useState } from "react";
 import { generatePassword, CharOptions } from "./logic";
 import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
-import { FaRegCheckCircle, FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
+import { FaArrowCircleLeft, FaArrowCircleRight, FaRegCheckCircle } from "react-icons/fa";
 
 type CharsUnion = "lowercase" | "uppercase" | "numbers" | "special";
 
 export default function Home() {
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center z-50">
       <Panel/>
     </div>
   );
@@ -42,7 +42,7 @@ function Panel() {
   }
 
   return (
-    <Box className="w-1/2 border border-gray-300 rounded-xl shadow-lg mt-24 bg-white" p="9">
+    <Box className="w-7/12 shadow-xl border border-[#5b5bd6] rounded-xl mt-24 bg-[#F8F8FF]" px="9" pt="9" pb="4">
       <div className="flex justify-center">
         <PasswordField value={password}/>
       </div>
@@ -50,8 +50,8 @@ function Panel() {
         <Button size="3" className="hover:cursor-pointer active:cursor-default"
           onClick={() => setPassword(generatePassword(charOptions, passwordLength))}>GENERATE</Button>
       </div>
-      <Separator mt="3" size="4" />
-      <Box className="w-full" p="3">
+      <Separator size="4"/>
+      <Box className="w-full rounded-lg backdrop-blur-md" px="5" py="2">
         <LengthAdjuster
           value={passwordLength}
           setValue={value => {
@@ -76,14 +76,14 @@ function PasswordField(props: {value: string}) {
   const [clipboardChecked, setClipBoardChecked] = useState(false);
 
   return (
-    <Box className="w-1/2 border border-gray-300 rounded-lg" p="3">
+    <Box className="w-1/2 border rounded-lg" p="3">
       <IconButton onClick={() => setClipBoardChecked(!clipboardChecked)} className="hover:cursor-pointer" mr="3" variant="ghost" size="3">
         {
           clipboardChecked ? <FaRegCheckCircle className="text-2xl text-green-500"/>
            : <HiOutlineClipboardDocumentList className="text-2xl"/>
         }
       </IconButton>
-      <Text className="font-italic" style={{letterSpacing: "0.1em"}} size="4">{props.value}</Text>
+      <Text className="font-italic w-fit" style={{letterSpacing: "0.01em"}} size="4">{props.value}</Text>
     </Box>
   )
 }

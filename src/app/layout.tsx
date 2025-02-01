@@ -29,7 +29,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Theme>
+        <Theme style={{backgroundImage: "url('/background.svg')"}} accentColor="iris">
           {children}
         </Theme>
       </body>
