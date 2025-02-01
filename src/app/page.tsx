@@ -19,6 +19,7 @@ export default function Home() {
 function Panel() {
   const [passwordLength, setPasswordLength] = useState(5);
   const [password, setPassword] = useState("");
+  const [disabledButton, setDisabledButton] = useState({left: false, right: false});
   const [charOptions, setCharOptions] = useState<CharOptions>({
     lowercase: true,
     uppercase: false,
@@ -33,6 +34,13 @@ function Panel() {
     setCharOptions({...charOptions, [value]: !charOptions[value]})
   }
 
+  const validateLength = (length: number) => {
+    if (length == 4) setDisabledButton({...disabledButton, left: true});
+    if (length == 25) setDisabledButton({...disabledButton, right: true});
+    if (length > 4 && length < 25) setDisabledButton({left: false, right: false});
+    return length;
+  }
+
   return (
     <Box className="w-1/2 border border-gray-300 rounded-xl shadow-lg mt-24 bg-white" p="9">
       <div className="flex justify-center">
@@ -44,8 +52,20 @@ function Panel() {
       </div>
       <Separator mt="3" size="4" />
       <Box className="w-full" p="3">
-        <LengthAdjuster/>
-        <Slider size="3" min={3} max={25} value={[passwordLength]} defaultValue={[1]} onValueChange={value => setPasswordLength(value[0])}/>
+        <LengthAdjuster
+          value={passwordLength}
+          setValue={value => {
+            validateLength(value);
+            setPasswordLength(value)
+          }}
+          disabled={disabledButton}/>
+        <Slider
+          size="3" min={4} max={25}
+          value={[passwordLength]} defaultValue={[1]}
+          onValueChange={([value]) => {
+            validateLength(value);
+            setPasswordLength(value)
+          }}/>
         <CharSettings charOptions={charOptions} charOptionsSetter={charOptionsSetter}/>
       </Box>
     </Box>
@@ -95,33 +115,27 @@ function CharSettings(props: {charOptions: CharOptions, charOptionsSetter: (valu
   )
 }
 
-function LengthAdjuster() {
-  const [value, setValue] = useState(5);
-  const [disabled, setDisabled] = useState({left: false, right: false});
-
-  const validateLength = (length: number) => {
-    if (length == 4) setDisabled({...disabled, left: true});
-    if (length == 25) setDisabled({...disabled, right: true});
-    if (length > 4 && length < 25) setDisabled({left: false, right: false});
-    return length;
-  }
-
-  const minus = () => () => setValue(validateLength(value - 1));
-  const plus = () => () => setValue(validateLength(value + 1));
+function LengthAdjuster(props: {
+  value: number,
+  setValue: (value: number) => void,
+  disabled: { left: boolean, right: boolean }
+}) {
+  const minus = () => () => props.setValue(props.value - 1);
+  const plus = () => () => props.setValue(props.value + 1);
 
   return (
     <Box className="w-fit mx-auto" my="3">
-      <IconButton radius="full" disabled={disabled.left}
+      <IconButton radius="full" disabled={props.disabled.left}
         mr="4" variant="ghost" size="1"
-        className={disabled.left ? "" : "hover:cursor-pointer active:cursor-default"}
+        className={props.disabled.left ? "" : "hover:cursor-pointer active:cursor-default"}
         onClick={minus()}
       >
         <FaArrowCircleLeft className="text-3xl"/>
       </IconButton>
-      <Text className="text-xl">{value < 10 ? "0"+value : value}</Text>
-      <IconButton radius="full" disabled={disabled.right}
+      <Text className="text-xl">{props.value < 10 ? "0"+props.value : props.value}</Text>
+      <IconButton radius="full" disabled={props.disabled.right}
         ml="4" variant="ghost" size="1"
-        className={disabled.right ? "" : "hover:cursor-pointer active:cursor-default"}
+        className={props.disabled.right ? "" : "hover:cursor-pointer active:cursor-default"}
         onClick={plus()}
       >
         <FaArrowCircleRight className="text-3xl"/>
