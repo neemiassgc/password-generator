@@ -42,8 +42,8 @@ function Panel() {
   }
 
   return (
-    <Box className="w-7/12 shadow-xl border border-[#5b5bd6] rounded-xl mt-24 bg-[#F8F8FF]" px="9" pt="9" pb="4">
-      <div className="flex justify-center">
+    <div className="w-11/12 md:w-9/12 lg:w-7/12 shadow-xl border-2 border-[#5b5bd6] rounded-xl mt-24 bg-[#F8F8FF] px-4 md:px-12 pt-12 pb-4">
+      <div className="flex justify-center w-full">
         <PasswordField value={password}/>
       </div>
       <div className="flex justify-center my-3">
@@ -51,7 +51,7 @@ function Panel() {
           onClick={() => setPassword(generatePassword(charOptions, passwordLength))}>GENERATE</Button>
       </div>
       <Separator size="4"/>
-      <Box className="w-full rounded-lg backdrop-blur-md" px="5" py="2">
+      <div className="w-full rounded-lg backdrop-blur-md px-0 sm:px-5 py-4">
         <LengthAdjuster
           value={passwordLength}
           setValue={value => {
@@ -67,8 +67,8 @@ function Panel() {
             setPasswordLength(value)
           }}/>
         <CharSettings charOptions={charOptions} charOptionsSetter={charOptionsSetter}/>
-      </Box>
-    </Box>
+      </div>
+    </div>
   )
 }
 
@@ -76,7 +76,7 @@ function PasswordField(props: {value: string}) {
   const [clipboardChecked, setClipBoardChecked] = useState(false);
 
   return (
-    <Box className="w-1/2 border rounded-lg" p="3">
+    <Box className="w-full sm:w-4/6 md:w-5/6 lg:w-8/12 xl:w-1/2 border rounded-lg" p="3">
       <IconButton onClick={() => setClipBoardChecked(!clipboardChecked)} className="hover:cursor-pointer" mr="3" variant="ghost" size="3">
         {
           clipboardChecked ? <FaRegCheckCircle className="text-2xl text-green-500"/>
@@ -97,7 +97,7 @@ function CharSettings(props: {charOptions: CharOptions, charOptionsSetter: (valu
   }
 
   return (
-    <div className="flex flex-wrap my-8 justify-center gap-7">
+    <div className="flex flex-col ml-10 sm:ml-0 sm:flex-row sm:flex-wrap my-8 justify-center gap-7">
       {
         Object.keys(optionsMap).map((option, index) => 
           <Text key={index} className="hover:cursor-pointer active:cursor-default" as="label" size="3">
