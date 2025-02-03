@@ -91,7 +91,7 @@ function PasswordField(props: {value: string, clipboardChecked: boolean, setClip
   const isClipboardAvailable = useClipboardChecking();
 
   return (
-    <div className="w-full flex flex-col items-center px-1 py-3 sm:p-3 sm:block sm:w-4/6 md:w-5/6 lg:w-9/12 xl:w-1/2 border rounded-lg text-wrap overflow-clip">
+    <div className="w-full flex flex-col items-center px-1 py-3 sm:p-3 sm:block sm:w-4/6 md:w-5/6 lg:w-9/12 xl:w-1/2 border rounded-lg overflow-auto">
       {
         isClipboardAvailable &&
         <IconButton onClick={() => {
@@ -106,7 +106,7 @@ function PasswordField(props: {value: string, clipboardChecked: boolean, setClip
           }
         </IconButton>
       }
-      <Text className="font-italic w-fit ml-2" style={{letterSpacing: "0.1em"}} size="4">{props.value}</Text>
+      <Text className="font-italic w-fit ml-2 text-nowrap" style={{letterSpacing: "0.1em"}} size="4">{props.value}</Text>
     </div>
   )
 }
