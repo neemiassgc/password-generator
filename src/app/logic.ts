@@ -53,3 +53,14 @@ function selectCharOptions(charOptions: CharOptions): string[] {
 function randomNumber(size: number): number {
   return Math.floor(Math.random() * size)
 }
+
+export type StrenghLevels = "weak" | "moderate" | "strong";
+
+export function classifyPasswordStrength(passwordLength: number, charOptions: CharOptions): StrenghLevels {
+  const numberOfSelectedOptions: number = Object.values(charOptions).filter(it => it).length;
+
+  if (passwordLength < 8 || numberOfSelectedOptions === 1) return "weak";
+  if (passwordLength >= 8 && passwordLength < 12 && numberOfSelectedOptions >= 2) return "moderate";
+  if (passwordLength >= 12 && numberOfSelectedOptions >= 3) return "strong";
+  return "moderate";
+}

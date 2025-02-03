@@ -2,9 +2,10 @@
 
 import { Button, Text, Slider, Box, Switch, Separator, IconButton } from "@radix-ui/themes";
 import { useState } from "react";
-import { generatePassword, CharOptions } from "./logic";
+import { generatePassword, CharOptions, classifyPasswordStrength } from "./logic";
 import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
 import { FaArrowCircleLeft, FaArrowCircleRight, FaRegCheckCircle } from "react-icons/fa";
+import { BsShieldFillCheck, BsShieldFillMinus, BsShieldFillExclamation } from "react-icons/bs";
 
 type CharsUnion = "lowercase" | "uppercase" | "numbers" | "special";
 
@@ -41,8 +42,17 @@ function Panel() {
     return length;
   }
 
+  const strengthLevels = {
+    "strong": <BsShieldFillCheck className="text-3xl text-green-500"/>,
+    "moderate": <BsShieldFillMinus className="text-3xl text-yellow-500"/>,
+    "weak": <BsShieldFillExclamation className="text-3xl text-red-500"/>
+  }
+
+  const currentPasswordStrength = classifyPasswordStrength(password.length, charOptions);
+
   return (
     <div className="w-11/12 md:w-9/12 lg:w-7/12 shadow-xl border-2 border-[#5b5bd6] rounded-xl mt-4 sm:mt-24 bg-[#F8F8FF] px-2 md:px-12 pt-12 pb-4">
+      <Text className="flex justify-center gap-3 mb-3 text-xl">{strengthLevels[currentPasswordStrength]}{currentPasswordStrength}</Text>
       <div className="flex justify-center w-full">
         <PasswordField value={password}/>
       </div>
