@@ -8,7 +8,7 @@ A front-end web application designed to generate strong, customizable passwords 
 ![Repo size](https://img.shields.io/github/repo-size/neemiassgc/password-generator)
 ![License](https://img.shields.io/github/license/neemiassgc/password-generator)
 ![Last commit](https://img.shields.io/github/last-commit/neemiassgc/password-generator/main)
-![Host](https://img.shields.io/static/v1?label=hosted%20on&message=Vercel&color=000000&logo=vercel)
+![deployment](https://img.shields.io/static/v1?label=deployed%20on&message=Vercel&color=000000&logo=vercel)
 ![React Framework](https://img.shields.io/static/v1?label=React%20Framework&message=NextJs&color=000000&logo=nextdotjs)
 ![Css framework](https://img.shields.io/static/v1?label=Css%20framework&message=TailwindCss&color=06B6D4&logo=tailwindcss)
 ![Language](https://img.shields.io/static/v1?label=Language&message=TypeScript&color=3178C6&logo=typescript)
@@ -26,7 +26,7 @@ A front-end web application designed to generate strong, customizable passwords 
 [<img src="https://static-10.s3.sa-east-1.amazonaws.com/password-generator/mobile-preview.gif" width="320" height="600"/>]
 
 ## Demo :video_game:
-This web application is hosted on Vercel and can be viewed [here](https://hexalock.vercel.app)
+This web application was deployed on Vercel and can be viewed [here](https://hexalock.vercel.app)
 
 ## Tech stack :hammer:
 > <img height="42" width="42" alt="nextdotjs" src="https://cdn.simpleicons.org/nextdotjs"/>
