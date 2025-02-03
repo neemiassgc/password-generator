@@ -13,7 +13,6 @@ A front-end web application designed to generate strong, customizable passwords 
 ![Css framework](https://img.shields.io/static/v1?label=Css%20framework&message=TailwindCss&color=06B6D4&logo=tailwindcss)
 ![Language](https://img.shields.io/static/v1?label=Language&message=TypeScript&color=3178C6&logo=typescript)
 ![Radix UI](https://img.shields.io/static/v1?label=UI&message=RadixUI&color=161618&logo=radixui)
-
 ## Features :sparkles:
 
 - [x] **Dynamic generation:** Instantly generate strong passwords with customizable length and character composition.
