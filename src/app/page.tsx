@@ -2,7 +2,7 @@
 
 import { Button, Text, Slider, Box, Switch, Separator, IconButton } from "@radix-ui/themes";
 import { useState } from "react";
-import { generatePassword, CharOptions, classifyPasswordStrength } from "./logic";
+import { generatePassword, CharOptions, classifyPasswordStrength, StrenghLevels } from "./logic";
 import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
 import { FaArrowCircleLeft, FaArrowCircleRight, FaRegCheckCircle } from "react-icons/fa";
 import { BsShieldFillCheck, BsShieldFillMinus, BsShieldFillExclamation } from "react-icons/bs";
@@ -19,7 +19,8 @@ export default function Home() {
 }
 
 function Panel() {
-  const [passwordLength, setPasswordLength] = useState(5);
+  const [passwordLength, setPasswordLength] = useState(5); // The password needs the length to be generated
+  const [passwordStrength, setPasswordStrength] = useState<StrenghLevels>("weak"); // If derived it would cause an unwanted behavior 
   const [password, setPassword] = useState("");
   const [clipboardChecked, setClipboardChecked] = useState(false);
   const [disabledButton, setDisabledButton] = useState({left: false, right: false});
@@ -50,11 +51,9 @@ function Panel() {
     "weak": <BsShieldFillExclamation className="text-3xl text-red-500"/>
   }
 
-  const currentPasswordStrength = classifyPasswordStrength(password.length, charOptions);
-
   return (
     <div className="w-11/12 md:w-9/12 lg:w-7/12 shadow-xl border-2 border-[#5b5bd6] rounded-xl mt-4 sm:mt-24 bg-[#F8F8FF] px-2 md:px-12 pt-12 pb-4">
-      <Text className="flex justify-center gap-3 mb-3 text-xl">{strengthLevels[currentPasswordStrength]}{currentPasswordStrength}</Text>
+      <Text className="flex justify-center gap-3 mb-3 text-xl">{strengthLevels[passwordStrength]}{passwordStrength}</Text>
       <div className="flex justify-center w-full">
         <PasswordField clipboardChecked={clipboardChecked} setClipboardChecked={setClipboardChecked.bind(null, true)} value={password}/>
       </div>
@@ -63,6 +62,7 @@ function Panel() {
           onClick={() => {
             setPassword(generatePassword(charOptions, passwordLength));
             setClipboardChecked(false);
+            setPasswordStrength(classifyPasswordStrength(passwordLength, charOptions));
           }}>GENERATE</Button>
       </div>
       <Separator size="4"/>
