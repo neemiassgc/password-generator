@@ -2,7 +2,7 @@
 
 import { Button, Text, Slider, Box, Switch, Separator, IconButton } from "@radix-ui/themes";
 import { useState } from "react";
-import { generatePassword, CharOptions, classifyPasswordStrength, StrenghLevels } from "./logic";
+import { generatePassword, CharOptions, classifyPasswordStrength, StrengthLevels } from "./logic";
 import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
 import { FaArrowCircleLeft, FaArrowCircleRight, FaRegCheckCircle } from "react-icons/fa";
 import { BsShieldFillCheck, BsShieldFillMinus, BsShieldFillExclamation } from "react-icons/bs";
@@ -20,7 +20,7 @@ export default function Home() {
 
 function Panel() {
   const [passwordLength, setPasswordLength] = useState(5); // The password needs the length to be generated
-  const [passwordStrength, setPasswordStrength] = useState<StrenghLevels>("weak"); // If derived it would cause an unwanted behavior 
+  const [passwordStrength, setPasswordStrength] = useState<StrengthLevels>("weak"); // If derived it would cause an unwanted behavior 
   const [password, setPassword] = useState("");
   const [clipboardChecked, setClipboardChecked] = useState(false);
   const [disabledButton, setDisabledButton] = useState({left: false, right: false});
