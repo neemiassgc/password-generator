@@ -6,6 +6,7 @@ import { generatePassword, CharOptions, classifyPasswordStrength } from "./logic
 import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
 import { FaArrowCircleLeft, FaArrowCircleRight, FaRegCheckCircle } from "react-icons/fa";
 import { BsShieldFillCheck, BsShieldFillMinus, BsShieldFillExclamation } from "react-icons/bs";
+import { useClipboardChecking } from "./hooks";
 
 type CharsUnion = "lowercase" | "uppercase" | "numbers" | "special";
 
@@ -20,6 +21,7 @@ export default function Home() {
 function Panel() {
   const [passwordLength, setPasswordLength] = useState(5);
   const [password, setPassword] = useState("");
+  const [clipboardChecked, setClipboardChecked] = useState(false);
   const [disabledButton, setDisabledButton] = useState({left: false, right: false});
   const [charOptions, setCharOptions] = useState<CharOptions>({
     lowercase: true,
@@ -54,11 +56,14 @@ function Panel() {
     <div className="w-11/12 md:w-9/12 lg:w-7/12 shadow-xl border-2 border-[#5b5bd6] rounded-xl mt-4 sm:mt-24 bg-[#F8F8FF] px-2 md:px-12 pt-12 pb-4">
       <Text className="flex justify-center gap-3 mb-3 text-xl">{strengthLevels[currentPasswordStrength]}{currentPasswordStrength}</Text>
       <div className="flex justify-center w-full">
-        <PasswordField value={password}/>
+        <PasswordField clipboardChecked={clipboardChecked} setClipboardChecked={setClipboardChecked.bind(null, true)} value={password}/>
       </div>
       <div className="flex justify-center my-3">
         <Button size="3" className="hover:cursor-pointer active:cursor-default"
-          onClick={() => setPassword(generatePassword(charOptions, passwordLength))}>GENERATE</Button>
+          onClick={() => {
+            setPassword(generatePassword(charOptions, passwordLength));
+            setClipboardChecked(false);
+          }}>GENERATE</Button>
       </div>
       <Separator size="4"/>
       <div className="w-full rounded-lg backdrop-blur-md px-0 sm:px-5 py-4">
@@ -82,17 +87,25 @@ function Panel() {
   )
 }
 
-function PasswordField(props: {value: string}) {
-  const [clipboardChecked, setClipBoardChecked] = useState(false);
+function PasswordField(props: {value: string, clipboardChecked: boolean, setClipboardChecked: () => void}) {
+  const isClipboardAvailable = useClipboardChecking();
 
   return (
     <div className="w-full flex flex-col items-center px-1 py-3 sm:p-3 sm:block sm:w-4/6 md:w-5/6 lg:w-9/12 xl:w-1/2 border rounded-lg text-wrap overflow-clip">
-      <IconButton onClick={() => setClipBoardChecked(!clipboardChecked)} className="hover:cursor-pointer" variant="ghost" size="3">
-        {
-          clipboardChecked ? <FaRegCheckCircle className="text-2xl text-green-500"/>
-           : <HiOutlineClipboardDocumentList className="text-2xl"/>
-        }
-      </IconButton>
+      {
+        isClipboardAvailable &&
+        <IconButton onClick={() => {
+            props.setClipboardChecked();
+            navigator.clipboard.writeText(props.value);
+          }}
+          className="hover:cursor-pointer" variant="ghost" size="3"
+        >
+          {
+            props.clipboardChecked ? <FaRegCheckCircle className="text-2xl text-green-500"/>
+            : <HiOutlineClipboardDocumentList className="text-2xl"/>
+          }
+        </IconButton>
+      }
       <Text className="font-italic w-fit ml-2" style={{letterSpacing: "0.1em"}} size="4">{props.value}</Text>
     </div>
   )
