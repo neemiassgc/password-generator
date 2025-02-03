@@ -42,7 +42,7 @@ function Panel() {
   }
 
   return (
-    <div className="w-11/12 md:w-9/12 lg:w-7/12 shadow-xl border-2 border-[#5b5bd6] rounded-xl mt-24 bg-[#F8F8FF] px-4 md:px-12 pt-12 pb-4">
+    <div className="w-11/12 md:w-9/12 lg:w-7/12 shadow-xl border-2 border-[#5b5bd6] rounded-xl mt-4 sm:mt-24 bg-[#F8F8FF] px-2 md:px-12 pt-12 pb-4">
       <div className="flex justify-center w-full">
         <PasswordField value={password}/>
       </div>
@@ -76,15 +76,15 @@ function PasswordField(props: {value: string}) {
   const [clipboardChecked, setClipBoardChecked] = useState(false);
 
   return (
-    <Box className="w-full sm:w-4/6 md:w-5/6 lg:w-8/12 xl:w-1/2 border rounded-lg" p="3">
-      <IconButton onClick={() => setClipBoardChecked(!clipboardChecked)} className="hover:cursor-pointer" mr="3" variant="ghost" size="3">
+    <div className="w-full flex flex-col items-center px-1 py-3 sm:p-3 sm:block sm:w-4/6 md:w-5/6 lg:w-9/12 xl:w-1/2 border rounded-lg text-wrap overflow-clip">
+      <IconButton onClick={() => setClipBoardChecked(!clipboardChecked)} className="hover:cursor-pointer" variant="ghost" size="3">
         {
           clipboardChecked ? <FaRegCheckCircle className="text-2xl text-green-500"/>
            : <HiOutlineClipboardDocumentList className="text-2xl"/>
         }
       </IconButton>
-      <Text className="font-italic w-fit" style={{letterSpacing: "0.01em"}} size="4">{props.value}</Text>
-    </Box>
+      <Text className="font-italic w-fit ml-2" style={{letterSpacing: "0.1em"}} size="4">{props.value}</Text>
+    </div>
   )
 }
 
