@@ -1,6 +1,6 @@
 [README in PT-BR :brazil:](https://github.com/neemiassgc/password-generator/blob/main/README-PT_BR.md)
 # Password Generator Web App :closed_lock_with_key:
-A simple Web App to generate strong passwords hosted on *Vercel*. It was made with *React*, *NextJS* and *MUI Components* using *Typescript* and *Tailwindcss* 
+A front-end web application designed to generate strong, customizable passwords dynamically based on user preferences. The UI, built with **Radix UI** and **Tailwind CSS**, is intuitive, visually appealing and responsive. Developed with **Next.js** and **TypeScript**, ensuring high performance.
 
 ![Top language](https://img.shields.io/github/languages/top/neemiassgc/password-generator)
 ![Code size](https://img.shields.io/github/languages/code-size/neemiassgc/password-generator)
@@ -8,14 +8,15 @@ A simple Web App to generate strong passwords hosted on *Vercel*. It was made wi
 ![License](https://img.shields.io/github/license/neemiassgc/password-generator)
 ![Last commit](https://img.shields.io/github/last-commit/neemiassgc/password-generator/main)
 ![Host](https://img.shields.io/static/v1?label=hosted%20on&message=Vercel&color=black&logo=vercel)
-![Javascript framework](https://img.shields.io/static/v1?label=Js%20framework&message=React&color=blue&logo=react)
+![React Framework](https://img.shields.io/static/v1?label=React%20Framework&message=NextJs&color=black&logo=nextdotjs)
 ![Css framework](https://img.shields.io/static/v1?label=Css%20framework&message=TailwindCss&color=blue&logo=tailwindcss)
 ![Language](https://img.shields.io/static/v1?label=Language&message=TypeScript&color=blue&logo=typescript)
 
-## Core Features :sparkles:
+## Features :sparkles:
 
-- [x] Button to copy the generated password to clipboard. Its implementation makes use of a browser *Web API* called **Clipboard API**.
-- [x] It contains a strength indicator that shows how strong the current password is. 
+- [x] **Dynamic generation:** Instantly generate strong passwords with customizable length and character composition.
+- [x] **Strength Indicator:** Displays a visual feedback indicating the current password strength.
+- [x] **Copy to clipboard:** Provides the usability to copy passwords with a single click for quick use.
 
 ## Preview on Desktop :fire::desktop_computer:
 [<img src="https://static-10.s3.sa-east-1.amazonaws.com/desktop-video.gif" width="800" height="420"/>]
