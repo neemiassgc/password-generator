@@ -20,10 +20,10 @@ A front-end web application designed to generate strong, customizable passwords 
 - [x] **Copy to clipboard:** Provides the usability to copy passwords with a single click for quick use.
 
 ## Preview on Desktop :fire::desktop_computer:
-[<img src="https://static-10.s3.sa-east-1.amazonaws.com/password-generator/desktop-preview.gif" width="800" height="420"/>]
+[<img src="https://static-10.s3.sa-east-1.amazonaws.com/password-generator/desktop-preview.gif" width="640" height="360"/>]
 
 ## Preview on Mobile :fire::iphone:
-[<img src="https://static-10.s3.sa-east-1.amazonaws.com/password-generator/mobile-preview.gif" width="320" height="600"/>]
+[<img src="https://static-10.s3.sa-east-1.amazonaws.com/password-generator/mobile-preview.gif" width="360" height="640"/>]
 
 ## Demo :video_game:
 This web application was deployed on Vercel and can be viewed [here](https://hexalock.vercel.app)
